@@ -13,7 +13,7 @@ class GeneralDataController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**

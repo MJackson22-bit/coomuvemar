@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\GeneralData;
 use Illuminate\Database\Seeder;
 
 class GeneralDataSeeder extends Seeder
@@ -12,6 +12,9 @@ class GeneralDataSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $generalData = GeneralData::factory(50)->make();
+        foreach ($generalData as $item) {
+            $item->save();
+        }
     }
 }

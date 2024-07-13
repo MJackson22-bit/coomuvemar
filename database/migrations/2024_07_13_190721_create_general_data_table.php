@@ -13,6 +13,21 @@ return new class extends Migration
     {
         Schema::create('general_data', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre_productor');
+            $table->string('codigo');
+            $table->string('numero_cedula');
+            $table->string('nombre_finca');
+            $table->float('altura_nivel_mar');
+            $table->string('ciclo_productivo');
+            $table->string('coordenadas_area_cacao');
+            $table->string('departamento');
+            $table->string('municipio');
+            $table->string('comunidad');
+            $table->float('area_total_finca');
+            $table->float('area_cacao');
+            $table->float('produccion');
+            $table->float('desarrollo');
+            $table->string('variedades_cacao');
             $table->timestamps();
         });
     }
