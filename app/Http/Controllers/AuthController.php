@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use const Grpc\STATUS_INTERNAL;
-use const Grpc\STATUS_OK;
-use const Grpc\STATUS_UNAUTHENTICATED;
-
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Throwable;
@@ -17,7 +14,45 @@ class AuthController extends Controller
 {
     public function login(Request $request): JsonResponse
     {
-        return response()->json();
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|string|email|max:255',
+                'password' => 'required|string',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'validation error',
+                    'errors' => $validator->errors(),
+                ], 401);
+            }
+
+            $credentials = $request->only('email', 'password');
+
+            if (! Auth::attempt($credentials)) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Unauthorized',
+                ], 401);
+            }
+
+            $user = User::where('email', $request->email)->firstOrFail();
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'status' => true,
+                'data' => $user,
+                'access_token' => $token,
+            ]);
+
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     public function register(Request $request): JsonResponse
