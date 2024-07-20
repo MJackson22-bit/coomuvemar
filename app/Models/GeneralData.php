@@ -24,7 +24,7 @@ class GeneralData extends Model
         'area_cacao',
         'produccion',
         'desarrollo',
-        'varidedades_cacao'
+        'varidedades_cacao',
     ];
 
     public $timestamps = false;

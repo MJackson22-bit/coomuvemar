@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GeneralData;
 use App\Http\Requests\StoreGeneralDataRequest;
 use App\Http\Requests\UpdateGeneralDataRequest;
+use App\Models\GeneralData;
 
 class GeneralDataController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
