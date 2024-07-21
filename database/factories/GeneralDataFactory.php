@@ -33,7 +33,7 @@ class GeneralDataFactory extends Factory
             'area_cacao' => $this->faker->randomFloat(2),
             'produccion' => $this->faker->randomFloat(2),
             'desarrollo' => $this->faker->randomFloat(2),
-            'variedades_cacao' => $this->faker->titleMale()
+            'variedades_cacao' => $this->faker->titleMale(),
         ];
     }
 }
