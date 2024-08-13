@@ -25,10 +25,11 @@ class GeneralData extends Model
         'area_cacao',
         'produccion',
         'desarrollo',
-        'varidedades_cacao',
+        'variedades_cacao',
+        'user_id',
     ];
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function user(): BelongsTo
     {
