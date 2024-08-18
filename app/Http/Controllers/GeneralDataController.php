@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\GeneralData\GeneralDataDTO;
 use App\Http\Requests\StoreGeneralDataRequest;
 use App\Http\Requests\UpdateGeneralDataRequest;
 use App\Models\GeneralData;
 use App\Services\GeneralDataService;
 use Illuminate\Http\JsonResponse;
-use Throwable;
 
 class GeneralDataController extends Controller
 {
@@ -22,14 +20,10 @@ class GeneralDataController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() {}
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function index(int $userId): JsonResponse
     {
-        //
+        return $this->generalDataService->index($userId);
+
     }
 
     /**
@@ -37,39 +31,7 @@ class GeneralDataController extends Controller
      */
     public function store(StoreGeneralDataRequest $request, int $userId): JsonResponse
     {
-        try {
-            $generalDataDTO = new GeneralDataDTO(
-                nombre_productor: $request->get('nombre_productor'),
-                codigo: $request->get('codigo'),
-                numero_cedula: $request->get('numero_cedula'),
-                nombre_finca: $request->get('nombre_finca'),
-                altura_nivel_mar: $request->get('altura_nivel_mar'),
-                ciclo_productivo: $request->get('ciclo_productivo'),
-                coordenadas_area_cacao: $request->get('coordenadas_area_cacao'),
-                departamento: $request->get('departamento'),
-                municipio: $request->get('municipio'),
-                comunidad: $request->get('comunidad'),
-                area_total_finca: $request->get('area_total_finca'),
-                area_cacao: $request->get('area_cacao'),
-                produccion: $request->get('produccion'),
-                desarrollo: $request->get('desarrollo'),
-                variedades_cacao: $request->get('variedades_cacao'),
-            );
-
-            $generalData = $this->generalDataService->store($generalDataDTO, $userId);
-
-            return response()->json([
-                'status' => true,
-                'statusCode' => 201,
-                'data' => $generalData,
-            ], 201);
-        } catch (Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'statusCode' => 500,
-                'message' => $e->getMessage(),
-            ], 500);
-        }
+        return $this->generalDataService->store($request, $userId);
     }
 
     /**

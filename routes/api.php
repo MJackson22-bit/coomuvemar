@@ -14,7 +14,7 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('general-data')->group(function () {
-    Route::get('/', [GeneralDataController::class, 'index']);
+    Route::get('/{userId}', [GeneralDataController::class, 'index']);
     Route::post('/store/{userId}', [GeneralDataController::class, 'store']);
     Route::put('/update', [GeneralDataController::class, 'update']);
     Route::delete('/destroy', [GeneralDataController::class, 'destroy']);

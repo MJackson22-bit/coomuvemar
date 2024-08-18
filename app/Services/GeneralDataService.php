@@ -3,29 +3,88 @@
 namespace App\Services;
 
 use App\DTO\GeneralData\GeneralDataDTO;
+use App\Http\Requests\StoreGeneralDataRequest;
 use App\Models\GeneralData;
+use Illuminate\Http\JsonResponse;
+use Throwable;
 
 class GeneralDataService
 {
-    public function store(GeneralDataDTO $generalDataDTO, int $userId): GeneralData
+    public function index(int $userId): JsonResponse
     {
-        return GeneralData::create([
-            'nombre_productor' => $generalDataDTO->nombre_productor,
-            'codigo' => $generalDataDTO->codigo,
-            'numero_cedula' => $generalDataDTO->numero_cedula,
-            'nombre_finca' => $generalDataDTO->nombre_finca,
-            'altura_nivel_mar' => $generalDataDTO->altura_nivel_mar,
-            'ciclo_productivo' => $generalDataDTO->ciclo_productivo,
-            'coordenadas_area_cacao' => $generalDataDTO->coordenadas_area_cacao,
-            'departamento' => $generalDataDTO->departamento,
-            'municipio' => $generalDataDTO->municipio,
-            'comunidad' => $generalDataDTO->comunidad,
-            'area_total_finca' => $generalDataDTO->area_total_finca,
-            'area_cacao' => $generalDataDTO->area_cacao,
-            'produccion' => $generalDataDTO->produccion,
-            'desarrollo' => $generalDataDTO->desarrollo,
-            'variedades_cacao' => $generalDataDTO->variedades_cacao,
-            'user_id' => $userId
-        ]);
+        try {
+            $generalDataByUser = GeneralData::where(
+                column: 'user_id',
+                operator: '=',
+                value: $userId
+            )->get()->toArray();
+
+            return response()->json([
+                'status' => true,
+                'statusCode' => 200,
+                'data' => $generalDataByUser,
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function store(StoreGeneralDataRequest $request, int $userId): JsonResponse
+    {
+        try {
+            $generalDataDTO = new GeneralDataDTO(
+                nombre_productor: $request->get('nombre_productor'),
+                codigo: $request->get('codigo'),
+                numero_cedula: $request->get('numero_cedula'),
+                nombre_finca: $request->get('nombre_finca'),
+                altura_nivel_mar: $request->get('altura_nivel_mar'),
+                ciclo_productivo: $request->get('ciclo_productivo'),
+                coordenadas_area_cacao: $request->get('coordenadas_area_cacao'),
+                departamento: $request->get('departamento'),
+                municipio: $request->get('municipio'),
+                comunidad: $request->get('comunidad'),
+                area_total_finca: $request->get('area_total_finca'),
+                area_cacao: $request->get('area_cacao'),
+                produccion: $request->get('produccion'),
+                desarrollo: $request->get('desarrollo'),
+                variedades_cacao: $request->get('variedades_cacao'),
+            );
+
+            $generalData = GeneralData::create([
+                'nombre_productor' => $generalDataDTO->nombre_productor,
+                'codigo' => $generalDataDTO->codigo,
+                'numero_cedula' => $generalDataDTO->numero_cedula,
+                'nombre_finca' => $generalDataDTO->nombre_finca,
+                'altura_nivel_mar' => $generalDataDTO->altura_nivel_mar,
+                'ciclo_productivo' => $generalDataDTO->ciclo_productivo,
+                'coordenadas_area_cacao' => $generalDataDTO->coordenadas_area_cacao,
+                'departamento' => $generalDataDTO->departamento,
+                'municipio' => $generalDataDTO->municipio,
+                'comunidad' => $generalDataDTO->comunidad,
+                'area_total_finca' => $generalDataDTO->area_total_finca,
+                'area_cacao' => $generalDataDTO->area_cacao,
+                'produccion' => $generalDataDTO->produccion,
+                'desarrollo' => $generalDataDTO->desarrollo,
+                'variedades_cacao' => $generalDataDTO->variedades_cacao,
+                'user_id' => $userId,
+            ]);
+
+
+            return response()->json([
+                'status' => true,
+                'statusCode' => 201,
+                'data' => $generalData,
+            ], 201);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
