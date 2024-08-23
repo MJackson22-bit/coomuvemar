@@ -13,9 +13,23 @@ class HarvestRegistrationCocoaService
     public function index(int $generalDataId): JsonResponse
     {
         try {
-            return response()->json();
+            $harvestRegistrationCocoa = HarvestRegistrationCocoa::where(
+                column: 'general_data_id',
+                operator: '=',
+                value: $generalDataId
+            )->get()->toArray();
+
+            return response()->json([
+                'status' => true,
+                'statusCode' => 200,
+                'data' => $harvestRegistrationCocoa,
+            ]);
         } catch (Throwable $exception) {
-            return response()->json();
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $exception->getMessage(),
+            ], 500);
         }
     }
 
