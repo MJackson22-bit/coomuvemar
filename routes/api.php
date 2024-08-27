@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\HarvestRegistrationCocoaController;
 use App\Http\Controllers\PlantationController;
+use App\Http\Controllers\RenewalRegistrationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,4 +35,11 @@ Route::prefix('plantation')->group(function () {
     Route::post('/store/{generalDataId}', [PlantationController::class, 'store']);
     Route::put('/update/{plantationId}', [PlantationController::class, 'update']);
     Route::delete('/destroy/{plantationId}', [PlantationController::class, 'destroy']);
+});
+
+Route::prefix('renewal-registration')->group(function () {
+    Route::get('/{generalDataId}', [RenewalRegistrationController::class, 'index']);
+    Route::post('/store/{generalDataId}', [RenewalRegistrationController::class, 'store']);
+    Route::put('/update/{renewalRegistrationId}', [RenewalRegistrationController::class, 'update']);
+    Route::delete('/destroy/{renewalRegistrationId}', [RenewalRegistrationController::class, 'destroy']);
 });
