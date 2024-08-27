@@ -10,6 +10,28 @@ use Throwable;
 
 class EquipmentCleaningRegistrationService
 {
+    public function index(int $generalDataId): JsonResponse
+    {
+        try {
+            $equipmentCleaningRegistration = EquipmentCleaningRegistration::where(
+                column: 'general_data_id',
+                operator: '=',
+                value: $generalDataId
+            )->get()->toArray();
+
+            return response()->json([
+                'status' => true,
+                'statusCode' => 200,
+                'data' => $equipmentCleaningRegistration,
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
     public function store(StoreEquipmentCleaningRegistrationRequest $request, int $generalDataId): JsonResponse
     {
         try {
