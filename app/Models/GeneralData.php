@@ -41,4 +41,9 @@ class GeneralData extends Model
     {
         return $this->hasMany(HarvestRegistrationCocoa::class);
     }
+
+    public function plantations(): HasMany
+    {
+        return $this->hasMany(Plantation::class);
+    }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\HarvestRegistrationCocoaController;
+use App\Http\Controllers\PlantationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,4 +27,11 @@ Route::prefix('cocoa-harvest-registration')->group(function () {
     Route::post('/store/{generalDataId}', [HarvestRegistrationCocoaController::class, 'store']);
     Route::put('/update/{cocoaHarvestRegistrationId}', [HarvestRegistrationCocoaController::class, 'update']);
     Route::delete('/destroy/{cocoaHarvestRegistrationId}', [HarvestRegistrationCocoaController::class, 'destroy']);
+});
+
+Route::prefix('plantation')->group(function () {
+    Route::get('/{generalDataId}', [PlantationController::class, 'index']);
+    Route::post('/store/{generalDataId}', [PlantationController::class, 'store']);
+    Route::put('/update/{plantationId}', [PlantationController::class, 'update']);
+    Route::delete('/destroy/{plantationId}', [PlantationController::class, 'destroy']);
 });
