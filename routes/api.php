@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EquipmentCleaningRegistrationController;
 use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\HarvestRegistrationCocoaController;
 use App\Http\Controllers\PlantationController;
@@ -42,4 +43,11 @@ Route::prefix('renewal-registration')->group(function () {
     Route::post('/store/{generalDataId}', [RenewalRegistrationController::class, 'store']);
     Route::put('/update/{renewalRegistrationId}', [RenewalRegistrationController::class, 'update']);
     Route::delete('/destroy/{renewalRegistrationId}', [RenewalRegistrationController::class, 'destroy']);
+});
+
+Route::prefix('equipment-cleaning-registration')->group(function () {
+    Route::get('/{generalDataId}', [EquipmentCleaningRegistrationController::class, 'index']);
+    Route::post('/store/{generalDataId}', [EquipmentCleaningRegistrationController::class, 'store']);
+    Route::put('/update/{equipmentCleaningRegistrationId}', [EquipmentCleaningRegistrationController::class, 'update']);
+    Route::delete('/destroy/{equipmentCleaningRegistrationId}', [EquipmentCleaningRegistrationController::class, 'destroy']);
 });
