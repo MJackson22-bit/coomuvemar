@@ -10,6 +10,28 @@ use Throwable;
 
 class RenewalRegistrationService
 {
+    public function index(int $generalDataId): JsonResponse
+    {
+        try {
+            $renewalRegistration = RenewalRegistration::where(
+                column: 'general_data_id',
+                operator: '=',
+                value: $generalDataId
+            )->get()->toArray();
+
+            return response()->json([
+                'status' => true,
+                'statusCode' => 200,
+                'data' => $renewalRegistration,
+            ]);
+        } catch (Throwable $exception) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $exception->getMessage(),
+            ], 500);
+        }
+    }
     public function store(StoreRenewalRegistrationRequest $request, int $generalDataId): JsonResponse
     {
         try {

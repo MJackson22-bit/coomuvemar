@@ -20,9 +20,9 @@ class RenewalRegistrationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(int $generalDataId): JsonResponse
     {
-        //
+        return $this->renewalRegistrationService->index($generalDataId);
     }
 
     /**
