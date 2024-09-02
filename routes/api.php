@@ -6,6 +6,7 @@ use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\HarvestRegistrationCocoaController;
 use App\Http\Controllers\PlantationController;
 use App\Http\Controllers\RenewalRegistrationController;
+use App\Http\Controllers\SuppliesMaterialsPurchaseRecordController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -50,4 +51,11 @@ Route::prefix('equipment-cleaning-registration')->group(function () {
     Route::post('/store/{generalDataId}', [EquipmentCleaningRegistrationController::class, 'store']);
     Route::put('/update/{equipmentCleaningRegistrationId}', [EquipmentCleaningRegistrationController::class, 'update']);
     Route::delete('/destroy/{equipmentCleaningRegistrationId}', [EquipmentCleaningRegistrationController::class, 'destroy']);
+});
+
+Route::prefix('supplies-materials-purchase-record')->group(function () {
+    Route::get('/{generalDataId}', [SuppliesMaterialsPurchaseRecordController::class, 'index']);
+    Route::post('/store/{generalDataId}', [SuppliesMaterialsPurchaseRecordController::class, 'store']);
+    Route::put('/update/{suppliesMaterialsPurchaseRecordId}', [SuppliesMaterialsPurchaseRecordController::class, 'update']);
+    Route::delete('/destroy/{suppliesMaterialsPurchaseRecordId}', [SuppliesMaterialsPurchaseRecordController::class, 'destroy']);
 });
