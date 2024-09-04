@@ -7,6 +7,7 @@ use App\Http\Controllers\HarvestRegistrationCocoaController;
 use App\Http\Controllers\IntegratedPestManagementActivitiesController;
 use App\Http\Controllers\PestMonitoringRecordDiseasesBeneficialInsectsController;
 use App\Http\Controllers\PlantationController;
+use App\Http\Controllers\RegistryTemporaryPermanentWorkersController;
 use App\Http\Controllers\RenewalRegistrationController;
 use App\Http\Controllers\SuppliesMaterialsPurchaseRecordController;
 use Illuminate\Support\Facades\Route;
@@ -74,4 +75,11 @@ Route::prefix('pest-monitoring-record-diseases-beneficial-insects')->group(funct
     Route::post('/store/{generalDataId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'store']);
     Route::put('/updated/{pestMonitoringRecordDiseasesBeneficialInsectsId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'update']);
     Route::delete('/destroy/{pestMonitoringRecordDiseasesBeneficialInsectsId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'destroy']);
+});
+
+Route::prefix('registry-temporary-permanent-workers')->group(function () {
+    Route::get('/{generalDataId}', [RegistryTemporaryPermanentWorkersController::class, 'index']);
+    Route::post('/store/{generalDataId}', [RegistryTemporaryPermanentWorkersController::class, 'store']);
+    Route::put('/update/{registryTemporaryPermanentWorkersId}', [RegistryTemporaryPermanentWorkersController::class, 'update']);
+    Route::delete('/destroy/{registryTemporaryPermanentWorkersId}', [RegistryTemporaryPermanentWorkersController::class, 'destroy']);
 });
