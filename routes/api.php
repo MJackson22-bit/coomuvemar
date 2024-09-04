@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EquipmentCleaningRegistrationController;
+use App\Http\Controllers\FertilizerApplicationRecordController;
 use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\HarvestRegistrationCocoaController;
 use App\Http\Controllers\IntegratedPestManagementActivitiesController;
@@ -90,4 +91,11 @@ Route::prefix('pesticide-application-record')->group(function () {
     Route::post('/store/{pesticideApplicationRecordId}', [PesticideApplicationRecordController::class, 'store']);
     Route::put('/update/{pesticideApplicationRecordId}', [PesticideApplicationRecordController::class, 'update']);
     Route::delete('destroy/{pesticideApplicationRecordId}', [PesticideApplicationRecordController::class, 'destroy']);
+});
+
+Route::prefix('fertilizer-application-record')->group(function () {
+    Route::get('/{pesticideApplicationRecordId}', [FertilizerApplicationRecordController::class, 'index']);
+    Route::post('/store/{pesticideApplicationRecordId}', [FertilizerApplicationRecordController::class, 'store']);
+    Route::put('/update/{fertilizerApplicationRecordId}', [FertilizerApplicationRecordController::class, 'update']);
+    Route::delete('/destroy/{fertilizerApplicationRecordId}', [FertilizerApplicationRecordController::class, 'destroy']);
 });
