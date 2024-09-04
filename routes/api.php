@@ -5,6 +5,7 @@ use App\Http\Controllers\EquipmentCleaningRegistrationController;
 use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\HarvestRegistrationCocoaController;
 use App\Http\Controllers\IntegratedPestManagementActivitiesController;
+use App\Http\Controllers\PestMonitoringRecordDiseasesBeneficialInsectsController;
 use App\Http\Controllers\PlantationController;
 use App\Http\Controllers\RenewalRegistrationController;
 use App\Http\Controllers\SuppliesMaterialsPurchaseRecordController;
@@ -66,4 +67,11 @@ Route::prefix('integrated-pest-management-activities')->group(function () {
     Route::post('/store/{generalDataId}', [IntegratedPestManagementActivitiesController::class, 'store']);
     Route::put('/update/{integratedPestManagementActivityId}', [IntegratedPestManagementActivitiesController::class, 'update']);
     Route::delete('/destroy/{integratedPestManagementActivityId}', [IntegratedPestManagementActivitiesController::class, 'destroy']);
+});
+
+Route::prefix('pest-monitoring-record-diseases-beneficial-insects')->group(function () {
+    Route::get('/{generalDataId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'index']);
+    Route::post('/store/{generalDataId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'store']);
+    Route::put('/updated/{pestMonitoringRecordDiseasesBeneficialInsectsId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'update']);
+    Route::delete('/destroy/{pestMonitoringRecordDiseasesBeneficialInsectsId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'destroy']);
 });
