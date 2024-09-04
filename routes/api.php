@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EquipmentCleaningRegistrationController;
 use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\HarvestRegistrationCocoaController;
+use App\Http\Controllers\IntegratedPestManagementActivitiesController;
 use App\Http\Controllers\PlantationController;
 use App\Http\Controllers\RenewalRegistrationController;
 use App\Http\Controllers\SuppliesMaterialsPurchaseRecordController;
@@ -58,4 +59,11 @@ Route::prefix('supplies-materials-purchase-record')->group(function () {
     Route::post('/store/{generalDataId}', [SuppliesMaterialsPurchaseRecordController::class, 'store']);
     Route::put('/update/{suppliesMaterialsPurchaseRecordId}', [SuppliesMaterialsPurchaseRecordController::class, 'update']);
     Route::delete('/destroy/{suppliesMaterialsPurchaseRecordId}', [SuppliesMaterialsPurchaseRecordController::class, 'destroy']);
+});
+
+Route::prefix('integrated-pest-management-activities')->group(function () {
+    Route::get('/{generalDataId}', [IntegratedPestManagementActivitiesController::class, 'index']);
+    Route::post('/store/{generalDataId}', [IntegratedPestManagementActivitiesController::class, 'store']);
+    Route::put('/update/{integratedPestManagementActivityId}', [IntegratedPestManagementActivitiesController::class, 'update']);
+    Route::delete('/destroy/{integratedPestManagementActivityId}', [IntegratedPestManagementActivitiesController::class, 'destroy']);
 });

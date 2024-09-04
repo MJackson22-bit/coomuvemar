@@ -8,6 +8,13 @@ use App\Models\EquipmentCleaningRegistration;
 use App\Services\EquipmentCleaningRegistrationService;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @OA\Info (
+ *     title="EquipmentCleaningRegistrationController",
+ *     version="1.0",
+ *     description=""
+ * )
+ */
 class EquipmentCleaningRegistrationController extends Controller
 {
     private EquipmentCleaningRegistrationService $equipmentCleaningRegistrationService;
