@@ -5,6 +5,7 @@ use App\Http\Controllers\EquipmentCleaningRegistrationController;
 use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\HarvestRegistrationCocoaController;
 use App\Http\Controllers\IntegratedPestManagementActivitiesController;
+use App\Http\Controllers\PesticideApplicationRecordController;
 use App\Http\Controllers\PestMonitoringRecordDiseasesBeneficialInsectsController;
 use App\Http\Controllers\PlantationController;
 use App\Http\Controllers\RegistryTemporaryPermanentWorkersController;
@@ -82,4 +83,11 @@ Route::prefix('registry-temporary-permanent-workers')->group(function () {
     Route::post('/store/{generalDataId}', [RegistryTemporaryPermanentWorkersController::class, 'store']);
     Route::put('/update/{registryTemporaryPermanentWorkersId}', [RegistryTemporaryPermanentWorkersController::class, 'update']);
     Route::delete('/destroy/{registryTemporaryPermanentWorkersId}', [RegistryTemporaryPermanentWorkersController::class, 'destroy']);
+});
+
+Route::prefix('pesticide-application-record')->group(function () {
+    Route::get('/{pesticideApplicationRecordId}', [PesticideApplicationRecordController::class, 'index']);
+    Route::post('/store/{pesticideApplicationRecordId}', [PesticideApplicationRecordController::class, 'store']);
+    Route::put('/update/{pesticideApplicationRecordId}', [PesticideApplicationRecordController::class, 'update']);
+    Route::delete('destroy/{pesticideApplicationRecordId}', [PesticideApplicationRecordController::class, 'destroy']);
 });
