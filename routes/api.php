@@ -65,29 +65,30 @@ Route::prefix('equipment-cleaning-registration')->group(function () {
 Route::prefix('supplies-materials-purchase-record')->group(function () {
     Route::get('/{generalDataId}', [SuppliesMaterialsPurchaseRecordController::class, 'index']);
     Route::post('/store/{generalDataId}', [SuppliesMaterialsPurchaseRecordController::class, 'store']);
-    Route::put('/update/{suppliesMaterialsPurchaseRecordId}', [SuppliesMaterialsPurchaseRecordController::class, 'update']);
-    Route::delete('/destroy/{suppliesMaterialsPurchaseRecordId}', [SuppliesMaterialsPurchaseRecordController::class, 'destroy']);
+    Route::put('/update/{id}', [SuppliesMaterialsPurchaseRecordController::class, 'update']);
+    Route::delete('/destroy/{id}', [SuppliesMaterialsPurchaseRecordController::class, 'destroy']);
+    Route::delete('/destroy/{id}', [SuppliesMaterialsPurchaseRecordController::class, 'destroy']);
 });
 
 Route::prefix('integrated-pest-management-activities')->group(function () {
     Route::get('/{generalDataId}', [IntegratedPestManagementActivitiesController::class, 'index']);
     Route::post('/store/{generalDataId}', [IntegratedPestManagementActivitiesController::class, 'store']);
-    Route::put('/update/{integratedPestManagementActivityId}', [IntegratedPestManagementActivitiesController::class, 'update']);
-    Route::delete('/destroy/{integratedPestManagementActivityId}', [IntegratedPestManagementActivitiesController::class, 'destroy']);
+    Route::put('/update/{id}', [IntegratedPestManagementActivitiesController::class, 'update']);
+    Route::delete('/destroy/{id}', [IntegratedPestManagementActivitiesController::class, 'destroy']);
 });
 
 Route::prefix('pest-monitoring-record-diseases-beneficial-insects')->group(function () {
     Route::get('/{generalDataId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'index']);
     Route::post('/store/{generalDataId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'store']);
-    Route::put('/updated/{pestMonitoringRecordDiseasesBeneficialInsectsId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'update']);
-    Route::delete('/destroy/{pestMonitoringRecordDiseasesBeneficialInsectsId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'destroy']);
+    Route::put('/updated/{id}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'update']);
+    Route::delete('/destroy/{id}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'destroy']);
 });
 
 Route::prefix('registry-temporary-permanent-workers')->group(function () {
     Route::get('/{generalDataId}', [RegistryTemporaryPermanentWorkersController::class, 'index']);
     Route::post('/store/{generalDataId}', [RegistryTemporaryPermanentWorkersController::class, 'store']);
-    Route::put('/update/{registryTemporaryPermanentWorkersId}', [RegistryTemporaryPermanentWorkersController::class, 'update']);
-    Route::delete('/destroy/{registryTemporaryPermanentWorkersId}', [RegistryTemporaryPermanentWorkersController::class, 'destroy']);
+    Route::put('/update/{id}', [RegistryTemporaryPermanentWorkersController::class, 'update']);
+    Route::delete('/destroy/{id}', [RegistryTemporaryPermanentWorkersController::class, 'destroy']);
 });
 
 Route::prefix('pesticide-application-record')->group(function () {
