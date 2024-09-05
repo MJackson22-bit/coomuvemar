@@ -60,9 +60,9 @@ class RenewalRegistrationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRenewalRegistrationRequest $request, RenewalRegistration $renewalRegistration)
+    public function update(UpdateRenewalRegistrationRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->renewalRegistrationService->update($request, $id);
     }
 
     /**

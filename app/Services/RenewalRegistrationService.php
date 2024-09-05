@@ -4,20 +4,46 @@ namespace App\Services;
 
 use App\DTO\RenewalRegistration\RenewalRegistrationDTO;
 use App\Http\Requests\StoreRenewalRegistrationRequest;
+use App\Http\Requests\UpdateRenewalRegistrationRequest;
 use App\Models\RenewalRegistration;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class RenewalRegistrationService
 {
+    public function update(UpdateRenewalRegistrationRequest $request, int $id): JsonResponse
+    {
+        try {
+            $result = RenewalRegistration::query()
+                ->findOrFail($id)
+                ->updateOrFail([
+                    'fecha_injertacion' => $request->get('fecha_injertacion'),
+                    'numero_plantas_injertada_por_mz' => $request->get('numero_plantas_injertada_por_mz'),
+                    'nombre_clones_injertados' => json_encode($request->get('nombre_clones_injertados')),
+                    'nombre_proveedor' => $request->get('nombre_proveedor'),
+                ]);
+
+            return response()->json([
+                'status' => $result,
+                'statusCode' => 200,
+                'message' => 'Registro actualizado correctamente',
+            ]);
+        } catch (Throwable $exception) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $exception->getMessage(),
+            ], 500);
+        }
+    }
+
     public function index(int $generalDataId): JsonResponse
     {
         try {
-            $renewalRegistration = RenewalRegistration::where(
-                column: 'general_data_id',
-                operator: '=',
-                value: $generalDataId
-            )->get()->toArray();
+            $renewalRegistration = RenewalRegistration::query()
+                ->where('general_data_id', $generalDataId)
+                ->get()
+                ->toArray();
 
             return response()->json([
                 'status' => true,
@@ -32,6 +58,7 @@ class RenewalRegistrationService
             ], 500);
         }
     }
+
     public function store(StoreRenewalRegistrationRequest $request, int $generalDataId): JsonResponse
     {
         try {
@@ -42,13 +69,14 @@ class RenewalRegistrationService
                 nombre_proveedor: $request->get('nombre_proveedor'),
             );
 
-            $renewalRegistration = RenewalRegistration::create([
-                'fecha_injertacion' => $renewalRegistrationDTO->fecha_injertacion,
-                'numero_plantas_injertada_por_mz' => $renewalRegistrationDTO->numero_plantas_injertada_por_mz,
-                'nombre_clones_injertados' => json_encode($renewalRegistrationDTO->nombre_clones_injertados),
-                'nombre_proveedor' => $renewalRegistrationDTO->nombre_proveedor,
-                'general_data_id' => $generalDataId,
-            ]);
+            $renewalRegistration = RenewalRegistration::query()
+                ->create([
+                    'fecha_injertacion' => $renewalRegistrationDTO->fecha_injertacion,
+                    'numero_plantas_injertada_por_mz' => $renewalRegistrationDTO->numero_plantas_injertada_por_mz,
+                    'nombre_clones_injertados' => json_encode($renewalRegistrationDTO->nombre_clones_injertados),
+                    'nombre_proveedor' => $renewalRegistrationDTO->nombre_proveedor,
+                    'general_data_id' => $generalDataId,
+                ]);
 
             return response()->json([
                 'status' => true,

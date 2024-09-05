@@ -51,8 +51,8 @@ Route::prefix('plantation')->group(function () {
 Route::prefix('renewal-registration')->group(function () {
     Route::get('/{generalDataId}', [RenewalRegistrationController::class, 'index']);
     Route::post('/store/{generalDataId}', [RenewalRegistrationController::class, 'store']);
-    Route::put('/update/{renewalRegistrationId}', [RenewalRegistrationController::class, 'update']);
-    Route::delete('/destroy/{renewalRegistrationId}', [RenewalRegistrationController::class, 'destroy']);
+    Route::put('/update/{id}', [RenewalRegistrationController::class, 'update']);
+    Route::delete('/destroy/{id}', [RenewalRegistrationController::class, 'destroy']);
 });
 
 Route::prefix('equipment-cleaning-registration')->group(function () {
