@@ -59,9 +59,9 @@ class PlantationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePlantationRequest $request, Plantation $plantation)
+    public function update(UpdatePlantationRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->plantationService->update($request, $id);
     }
 
     /**

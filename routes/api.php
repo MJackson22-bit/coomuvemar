@@ -44,8 +44,8 @@ Route::prefix('cocoa-harvest-registration')->group(function () {
 Route::prefix('plantation')->group(function () {
     Route::get('/{generalDataId}', [PlantationController::class, 'index']);
     Route::post('/store/{generalDataId}', [PlantationController::class, 'store']);
-    Route::put('/update/{plantationId}', [PlantationController::class, 'update']);
-    Route::delete('/destroy/{plantationId}', [PlantationController::class, 'destroy']);
+    Route::put('/update/{id}', [PlantationController::class, 'update']);
+    Route::delete('/destroy/{id}', [PlantationController::class, 'destroy']);
 });
 
 Route::prefix('renewal-registration')->group(function () {
