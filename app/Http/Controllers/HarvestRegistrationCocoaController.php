@@ -68,8 +68,8 @@ class HarvestRegistrationCocoaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(HarvestRegistrationCocoa $harvestRegistrationCocoa)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->harvestRegistrationCocoaService->delete($id);
     }
 }

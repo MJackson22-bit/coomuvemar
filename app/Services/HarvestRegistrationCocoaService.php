@@ -12,6 +12,25 @@ use Throwable;
 
 class HarvestRegistrationCocoaService
 {
+    public function delete(int $id): JsonResponse
+    {
+        try {
+            $result = HarvestRegistrationCocoa::query()
+                ->findOrFail($id)->delete();
+
+            return response()->json([
+                'status' => $result,
+                'statusCode' => 200,
+                'message' => 'Registro eliminado exitosamente',
+            ]);
+        } catch (Throwable $exception) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $exception->getMessage(),
+            ], 500);
+        }
+    }
     public function update(UpdateHarvestRegistrationCocoaRequest $request, int $id): JsonResponse
     {
         try {
