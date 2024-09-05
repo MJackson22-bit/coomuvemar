@@ -61,8 +61,8 @@ class GeneralDataController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(GeneralData $generalData)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->generalDataService->delete($id);
     }
 }

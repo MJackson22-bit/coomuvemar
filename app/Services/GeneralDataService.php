@@ -11,6 +11,26 @@ use Throwable;
 
 class GeneralDataService
 {
+    public function delete(int $id): JsonResponse
+    {
+        try {
+            $result = GeneralData::query()
+                ->findOrFail($id)->delete();
+
+            return response()->json([
+                'status' => $result,
+                'statusCode' => 200,
+                'message' => 'Registro eliminado exitosamente',
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function updated(UpdateGeneralDataRequest $request, int $id): JsonResponse
     {
         try {
@@ -34,6 +54,7 @@ class GeneralDataService
                 'desarrollo' => $request->get('desarrollo'),
                 'variedades_cacao' => $request->get('variedades_cacao'),
             ]);
+
             return response()->json([
                 'status' => $result,
                 'statusCode' => 200,
@@ -91,24 +112,25 @@ class GeneralDataService
                 variedades_cacao: $request->get('variedades_cacao'),
             );
 
-            $generalData = GeneralData::create([
-                'nombre_productor' => $generalDataDTO->nombre_productor,
-                'codigo' => $generalDataDTO->codigo,
-                'numero_cedula' => $generalDataDTO->numero_cedula,
-                'nombre_finca' => $generalDataDTO->nombre_finca,
-                'altura_nivel_mar' => $generalDataDTO->altura_nivel_mar,
-                'ciclo_productivo' => $generalDataDTO->ciclo_productivo,
-                'coordenadas_area_cacao' => $generalDataDTO->coordenadas_area_cacao,
-                'departamento' => $generalDataDTO->departamento,
-                'municipio' => $generalDataDTO->municipio,
-                'comunidad' => $generalDataDTO->comunidad,
-                'area_total_finca' => $generalDataDTO->area_total_finca,
-                'area_cacao' => $generalDataDTO->area_cacao,
-                'produccion' => $generalDataDTO->produccion,
-                'desarrollo' => $generalDataDTO->desarrollo,
-                'variedades_cacao' => $generalDataDTO->variedades_cacao,
-                'user_id' => $userId,
-            ]);
+            $generalData = GeneralData::query()
+                ->create([
+                    'nombre_productor' => $generalDataDTO->nombre_productor,
+                    'codigo' => $generalDataDTO->codigo,
+                    'numero_cedula' => $generalDataDTO->numero_cedula,
+                    'nombre_finca' => $generalDataDTO->nombre_finca,
+                    'altura_nivel_mar' => $generalDataDTO->altura_nivel_mar,
+                    'ciclo_productivo' => $generalDataDTO->ciclo_productivo,
+                    'coordenadas_area_cacao' => $generalDataDTO->coordenadas_area_cacao,
+                    'departamento' => $generalDataDTO->departamento,
+                    'municipio' => $generalDataDTO->municipio,
+                    'comunidad' => $generalDataDTO->comunidad,
+                    'area_total_finca' => $generalDataDTO->area_total_finca,
+                    'area_cacao' => $generalDataDTO->area_cacao,
+                    'produccion' => $generalDataDTO->produccion,
+                    'desarrollo' => $generalDataDTO->desarrollo,
+                    'variedades_cacao' => $generalDataDTO->variedades_cacao,
+                    'user_id' => $userId,
+                ]);
 
             return response()->json([
                 'status' => true,
