@@ -68,8 +68,8 @@ class RenewalRegistrationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RenewalRegistration $renewalRegistration)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->renewalRegistrationService->delete($id);
     }
 }
