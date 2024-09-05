@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('unidad_medida');
             $table->integer('cantidad');
             $table->date('fecha_compra');
+            $table->string('categoria');
             $table->float('costo_unitario');
             $table->float('costo_total');
             $table->foreignId('general_data_id');
