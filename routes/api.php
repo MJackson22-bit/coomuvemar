@@ -11,6 +11,7 @@ use App\Http\Controllers\PestMonitoringRecordDiseasesBeneficialInsectsController
 use App\Http\Controllers\PlantationController;
 use App\Http\Controllers\RegistryTemporaryPermanentWorkersController;
 use App\Http\Controllers\RenewalRegistrationController;
+use App\Http\Controllers\SamplingOneController;
 use App\Http\Controllers\SuppliesMaterialsPurchaseRecordController;
 use Illuminate\Support\Facades\Route;
 
@@ -98,4 +99,11 @@ Route::prefix('fertilizer-application-record')->group(function () {
     Route::post('/store/{pesticideApplicationRecordId}', [FertilizerApplicationRecordController::class, 'store']);
     Route::put('/update/{fertilizerApplicationRecordId}', [FertilizerApplicationRecordController::class, 'update']);
     Route::delete('/destroy/{fertilizerApplicationRecordId}', [FertilizerApplicationRecordController::class, 'destroy']);
+});
+
+Route::prefix('sampling-ones')->group(function () {
+    Route::get('/{id}', [SamplingOneController::class, 'index']);
+    Route::post('/store/{samplingOneId}', [SamplingOneController::class, 'store']);
+    Route::put('/update/{samplingOneId}', [SamplingOneController::class, 'update']);
+    Route::delete('/destroy/{samplingOneId}', [SamplingOneController::class, 'destroy']);
 });
