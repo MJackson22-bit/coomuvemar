@@ -23,10 +23,7 @@ class UpdateHarvestRegistrationCocoaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fecha' => 'required|date',
-            'cantidad_mazorcas' => 'required|integer',
-            'qq_baba_cacao' => 'required|integer',
-            'precio_qq' => 'required|numeric',
+            //
         ];
     }
 }

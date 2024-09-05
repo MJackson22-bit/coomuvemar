@@ -60,9 +60,9 @@ class HarvestRegistrationCocoaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateHarvestRegistrationCocoaRequest $request, HarvestRegistrationCocoa $harvestRegistrationCocoa)
+    public function update(UpdateHarvestRegistrationCocoaRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->harvestRegistrationCocoaService->update($request, $id);
     }
 
     /**
