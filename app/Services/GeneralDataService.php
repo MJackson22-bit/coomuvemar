@@ -4,20 +4,57 @@ namespace App\Services;
 
 use App\DTO\GeneralData\GeneralDataDTO;
 use App\Http\Requests\StoreGeneralDataRequest;
+use App\Http\Requests\UpdateGeneralDataRequest;
 use App\Models\GeneralData;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class GeneralDataService
 {
+    public function updated(UpdateGeneralDataRequest $request, int $id): JsonResponse
+    {
+        try {
+            $data = GeneralData::query()
+                ->findOrFail($id);
+
+            $result = $data->updateOrFail([
+                'nombre_productor' => $request->get('nombre_productor'),
+                'codigo' => $request->get('codigo'),
+                'numero_cedula' => $request->get('numero_cedula'),
+                'nombre_finca' => $request->get('nombre_finca'),
+                'altura_nivel_mar' => $request->get('altura_nivel_mar'),
+                'ciclo_productivo' => $request->get('ciclo_productivo'),
+                'coordenadas_area_cacao' => $request->get('coordenadas_area_cacao'),
+                'departamento' => $request->get('departamento'),
+                'municipio' => $request->get('municipio'),
+                'comunidad' => $request->get('comunidad'),
+                'area_total_finca' => $request->get('area_total_finca'),
+                'area_cacao' => $request->get('area_cacao'),
+                'produccion' => $request->get('produccion'),
+                'desarrollo' => $request->get('desarrollo'),
+                'variedades_cacao' => $request->get('variedades_cacao'),
+            ]);
+            return response()->json([
+                'status' => $result,
+                'statusCode' => 200,
+                'message' => 'Registro actualizado correctamente',
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function index(int $userId): JsonResponse
     {
         try {
-            $generalDataByUser = GeneralData::where(
-                column: 'user_id',
-                operator: '=',
-                value: $userId
-            )->get()->toArray();
+            $generalDataByUser = GeneralData::query()
+                ->where('user_id', '=', $userId)
+                ->get()
+                ->toArray();
 
             return response()->json([
                 'status' => true,
@@ -72,7 +109,6 @@ class GeneralDataService
                 'variedades_cacao' => $generalDataDTO->variedades_cacao,
                 'user_id' => $userId,
             ]);
-
 
             return response()->json([
                 'status' => true,

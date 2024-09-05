@@ -53,9 +53,9 @@ class GeneralDataController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGeneralDataRequest $request, GeneralData $generalData)
+    public function update(UpdateGeneralDataRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->generalDataService->updated($request, $id);
     }
 
     /**

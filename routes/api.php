@@ -30,8 +30,8 @@ Route::prefix('auth')->group(function () {
 Route::prefix('general-data')->group(function () {
     Route::get('/{userId}', [GeneralDataController::class, 'index']);
     Route::post('/store/{userId}', [GeneralDataController::class, 'store']);
-    Route::put('/update', [GeneralDataController::class, 'update']);
-    Route::delete('/destroy', [GeneralDataController::class, 'destroy']);
+    Route::put('/update/{id}', [GeneralDataController::class, 'update']);
+    Route::delete('/destroy/{id}', [GeneralDataController::class, 'destroy']);
 });
 
 Route::prefix('cocoa-harvest-registration')->group(function () {
