@@ -5,12 +5,32 @@ namespace App\Services;
 use App\DTO\Plantation\PlantationDTO;
 use App\Http\Requests\StorePlantationRequest;
 use App\Http\Requests\UpdatePlantationRequest;
+use App\Models\GeneralData;
 use App\Models\Plantation;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class PlantationService
 {
+    public function delete(int $id): JsonResponse
+    {
+        try {
+            $result = Plantation::query()
+                ->findOrFail($id)->delete();
+
+            return response()->json([
+                'status' => $result,
+                'statusCode' => 200,
+                'message' => 'Registro eliminado exitosamente',
+            ]);
+        } catch (Throwable $exception) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $exception->getMessage(),
+            ], 500);
+        }
+    }
     public function update(UpdatePlantationRequest $request, int $id): JsonResponse
     {
         try {
@@ -37,6 +57,7 @@ class PlantationService
             ], 500);
         }
     }
+
     public function index(int $generalDataId): JsonResponse
     {
         try {
@@ -58,9 +79,13 @@ class PlantationService
             ], 500);
         }
     }
+
     public function store(StorePlantationRequest $plantationRequest, int $generalDataId): JsonResponse
     {
         try {
+            GeneralData::query()
+                ->findOrFail($generalDataId);
+
             $plantationDTO = new PlantationDTO(
                 tipo_poda: $plantationRequest->get('tipo_poda'),
                 numero_plantas_podadas: $plantationRequest->get('numero_plantas_podadas'),

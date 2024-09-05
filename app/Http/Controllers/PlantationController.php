@@ -67,8 +67,8 @@ class PlantationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Plantation $plantation)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->plantationService->delete($id);
     }
 }
