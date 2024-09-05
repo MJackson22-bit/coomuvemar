@@ -67,16 +67,16 @@ class EquipmentCleaningRegistrationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEquipmentCleaningRegistrationRequest $request, EquipmentCleaningRegistration $equipmentCleaningRegistration)
+    public function update(UpdateEquipmentCleaningRegistrationRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->equipmentCleaningRegistrationService->update($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EquipmentCleaningRegistration $equipmentCleaningRegistration)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->equipmentCleaningRegistrationService->delete($id);
     }
 }

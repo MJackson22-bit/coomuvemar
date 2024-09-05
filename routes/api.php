@@ -58,8 +58,8 @@ Route::prefix('renewal-registration')->group(function () {
 Route::prefix('equipment-cleaning-registration')->group(function () {
     Route::get('/{generalDataId}', [EquipmentCleaningRegistrationController::class, 'index']);
     Route::post('/store/{generalDataId}', [EquipmentCleaningRegistrationController::class, 'store']);
-    Route::put('/update/{equipmentCleaningRegistrationId}', [EquipmentCleaningRegistrationController::class, 'update']);
-    Route::delete('/destroy/{equipmentCleaningRegistrationId}', [EquipmentCleaningRegistrationController::class, 'destroy']);
+    Route::put('/update/{id}', [EquipmentCleaningRegistrationController::class, 'update']);
+    Route::delete('/destroy/{id}', [EquipmentCleaningRegistrationController::class, 'destroy']);
 });
 
 Route::prefix('supplies-materials-purchase-record')->group(function () {

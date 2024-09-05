@@ -34,26 +34,24 @@ class GeneralDataService
     public function updated(UpdateGeneralDataRequest $request, int $id): JsonResponse
     {
         try {
-            $data = GeneralData::query()
-                ->findOrFail($id);
-
-            $result = $data->updateOrFail([
-                'nombre_productor' => $request->get('nombre_productor'),
-                'codigo' => $request->get('codigo'),
-                'numero_cedula' => $request->get('numero_cedula'),
-                'nombre_finca' => $request->get('nombre_finca'),
-                'altura_nivel_mar' => $request->get('altura_nivel_mar'),
-                'ciclo_productivo' => $request->get('ciclo_productivo'),
-                'coordenadas_area_cacao' => $request->get('coordenadas_area_cacao'),
-                'departamento' => $request->get('departamento'),
-                'municipio' => $request->get('municipio'),
-                'comunidad' => $request->get('comunidad'),
-                'area_total_finca' => $request->get('area_total_finca'),
-                'area_cacao' => $request->get('area_cacao'),
-                'produccion' => $request->get('produccion'),
-                'desarrollo' => $request->get('desarrollo'),
-                'variedades_cacao' => $request->get('variedades_cacao'),
-            ]);
+            $result = GeneralData::query()
+                ->findOrFail($id)->updateOrFail([
+                    'nombre_productor' => $request->get('nombre_productor'),
+                    'codigo' => $request->get('codigo'),
+                    'numero_cedula' => $request->get('numero_cedula'),
+                    'nombre_finca' => $request->get('nombre_finca'),
+                    'altura_nivel_mar' => $request->get('altura_nivel_mar'),
+                    'ciclo_productivo' => $request->get('ciclo_productivo'),
+                    'coordenadas_area_cacao' => $request->get('coordenadas_area_cacao'),
+                    'departamento' => $request->get('departamento'),
+                    'municipio' => $request->get('municipio'),
+                    'comunidad' => $request->get('comunidad'),
+                    'area_total_finca' => $request->get('area_total_finca'),
+                    'area_cacao' => $request->get('area_cacao'),
+                    'produccion' => $request->get('produccion'),
+                    'desarrollo' => $request->get('desarrollo'),
+                    'variedades_cacao' => $request->get('variedades_cacao'),
+                ]);
 
             return response()->json([
                 'status' => $result,

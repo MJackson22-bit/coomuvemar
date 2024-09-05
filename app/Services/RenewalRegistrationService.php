@@ -5,6 +5,7 @@ namespace App\Services;
 use App\DTO\RenewalRegistration\RenewalRegistrationDTO;
 use App\Http\Requests\StoreRenewalRegistrationRequest;
 use App\Http\Requests\UpdateRenewalRegistrationRequest;
+use App\Models\GeneralData;
 use App\Models\RenewalRegistration;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -30,6 +31,7 @@ class RenewalRegistrationService
             ], 500);
         }
     }
+
     public function update(UpdateRenewalRegistrationRequest $request, int $id): JsonResponse
     {
         try {
@@ -81,6 +83,9 @@ class RenewalRegistrationService
     public function store(StoreRenewalRegistrationRequest $request, int $generalDataId): JsonResponse
     {
         try {
+            GeneralData::query()
+                ->findOrFail($generalDataId);
+
             $renewalRegistrationDTO = new RenewalRegistrationDTO(
                 fecha_injertacion: $request->get('fecha_injertacion'),
                 numero_plantas_injertada_por_mz: $request->get('numero_plantas_injertada_por_mz'),
