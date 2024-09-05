@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('lugar_cultivo_producto_aplicado');
             $table->float('mz_area_producto_aplicado');
             $table->float('litros_total_volumen_aplicado');
-            $table->foreignId('registry_temporary_permanent_workers_id');
+            $table->foreignId('supplies_materials_purchase_records_id');
             $table->timestamps();
         });
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CocoaAreaActivitiesRegistryController;
 use App\Http\Controllers\EquipmentCleaningRegistrationController;
 use App\Http\Controllers\FertilizerApplicationRecordController;
 use App\Http\Controllers\GeneralDataController;
@@ -114,4 +115,11 @@ Route::prefix('sampling-twos')->group(function () {
     Route::post('/store/{samplingTwoId}', [SamplingTwoController::class, 'store']);
     Route::put('/update/{samplingTwoId}', [SamplingTwoController::class, 'update']);
     Route::delete('/destroy/{samplingTwoId}', [SamplingTwoController::class, 'destroy']);
+});
+
+Route::prefix('cocoa-area-activities-registries')->group(function () {
+    Route::get('/{id}', [CocoaAreaActivitiesRegistryController::class, 'index']);
+    Route::post('/store/{id}', [CocoaAreaActivitiesRegistryController::class, 'store']);
+    Route::put('/update/{id}', [CocoaAreaActivitiesRegistryController::class, 'update']);
+    Route::delete('/destroy/{id}', [CocoaAreaActivitiesRegistryController::class, 'destroy']);
 });
