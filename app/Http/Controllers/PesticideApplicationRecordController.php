@@ -60,16 +60,16 @@ class PesticideApplicationRecordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePesticideApplicationRecordRequest $request, PesticideApplicationRecord $pesticideApplicationRecord)
+    public function update(UpdatePesticideApplicationRecordRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->pesticideApplicationRecordService->updated($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PesticideApplicationRecord $pesticideApplicationRecord)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->pesticideApplicationRecordService->delete($id);
     }
 }

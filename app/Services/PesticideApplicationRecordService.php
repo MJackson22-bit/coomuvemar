@@ -4,20 +4,70 @@ namespace App\Services;
 
 use App\DTO\PesticideApplicationRecord\PesticideApplicationRecordDTO;
 use App\Http\Requests\StorePesticideApplicationRecordRequest;
+use App\Http\Requests\UpdatePesticideApplicationRecordRequest;
 use App\Models\PesticideApplicationRecord;
+use App\Models\SuppliesMaterialsPurchaseRecord;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class PesticideApplicationRecordService
 {
+    public function delete(int $id): JsonResponse
+    {
+        try {
+            $result = PesticideApplicationRecord::query()
+                ->findOrFail($id)->delete();
+
+            return response()->json([
+                'status' => $result,
+                'statusCode' => 200,
+                'message' => 'Registro eliminado exitosamente',
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function updated(UpdatePesticideApplicationRecordRequest $request, int $id): JsonResponse
+    {
+        try {
+            $result = PesticideApplicationRecord::query()
+                ->findOrFail($id)->updateOrFail([
+                    'nombres_apellidos_aplicadores' => $request->get('nombres_apellidos_aplicadores'),
+                    'plaga_enfermedad' => $request->get('plaga_enfermedad'),
+                    'nombre_producto' => $request->get('nombre_producto'),
+                    'fecha_aplicacion' => $request->get('fecha_aplicacion'),
+                    'hora_aplicacion' => $request->get('hora_aplicacion'),
+                    'onzas_dosis_bombadas' => $request->get('onzas_dosis_bombadas'),
+                    'mz_area_producto_aplicado' => $request->get('mz_area_producto_aplicado'),
+                    'lugar_cultivo_producto_aplicado' => $request->get('lugar_cultivo_producto_aplicado'),
+                    'litros_total_volumen_aplicado' => $request->get('litros_total_volumen_aplicado'),
+                ]);
+
+            return response()->json([
+                'status' => $result,
+                'statusCode' => 200,
+                'message' => 'Registro actualizado correctamente',
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
     public function index(int $pesticideApplicationRecordId): JsonResponse
     {
         try {
-            $data = PesticideApplicationRecord::where(
-                column: 'registry_temporary_permanent_workers_id',
-                operator: '=',
-                value: $pesticideApplicationRecordId
-            )->get()->toArray();
+            $data = PesticideApplicationRecord::query()
+                ->where('supplies_materials_purchase_records_id', $pesticideApplicationRecordId)
+                ->get()
+                ->toArray();
 
             return response()->json([
                 'status' => true,
@@ -32,9 +82,11 @@ class PesticideApplicationRecordService
             ], 500);
         }
     }
+
     public function store(StorePesticideApplicationRecordRequest $request, int $pesticideApplicationRecordId): JsonResponse
     {
         try {
+            SuppliesMaterialsPurchaseRecord::query()->findOrFail($pesticideApplicationRecordId);
             $dto = new PesticideApplicationRecordDTO(
                 nombres_apellidos_aplicadores: $request->input('nombres_apellidos_aplicadores'),
                 plaga_enfermedad: $request->input('plaga_enfermedad'),
@@ -47,18 +99,19 @@ class PesticideApplicationRecordService
                 litros_total_volumen_aplicado: $request->input('litros_total_volumen_aplicado'),
             );
 
-            $data = PesticideApplicationRecord::create([
-                'nombres_apellidos_aplicadores' => $dto->nombres_apellidos_aplicadores,
-                'plaga_enfermedad' => $dto->plaga_enfermedad,
-                'nombre_producto' => $dto->nombre_producto,
-                'fecha_aplicacion' => $dto->fecha_aplicacion,
-                'hora_aplicacion' => $dto->hora_aplicacion,
-                'onzas_dosis_bombadas' => $dto->onzas_dosis_bombadas,
-                'mz_area_producto_aplicado' => $dto->mz_area_producto_aplicado,
-                'lugar_cultivo_producto_aplicado' => $dto->lugar_cultivo_producto_aplicado,
-                'litros_total_volumen_aplicado' => $dto->litros_total_volumen_aplicado,
-                'registry_temporary_permanent_workers_id' => $pesticideApplicationRecordId,
-            ]);
+            $data = PesticideApplicationRecord::query()
+                ->create([
+                    'nombres_apellidos_aplicadores' => $dto->nombres_apellidos_aplicadores,
+                    'plaga_enfermedad' => $dto->plaga_enfermedad,
+                    'nombre_producto' => $dto->nombre_producto,
+                    'fecha_aplicacion' => $dto->fecha_aplicacion,
+                    'hora_aplicacion' => $dto->hora_aplicacion,
+                    'onzas_dosis_bombadas' => $dto->onzas_dosis_bombadas,
+                    'mz_area_producto_aplicado' => $dto->mz_area_producto_aplicado,
+                    'lugar_cultivo_producto_aplicado' => $dto->lugar_cultivo_producto_aplicado,
+                    'litros_total_volumen_aplicado' => $dto->litros_total_volumen_aplicado,
+                    'supplies_materials_purchase_records_id' => $pesticideApplicationRecordId,
+                ]);
 
             return response()->json([
                 'status' => true,

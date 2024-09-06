@@ -93,8 +93,8 @@ Route::prefix('registry-temporary-permanent-workers')->group(function () {
 Route::prefix('pesticide-application-record')->group(function () {
     Route::get('/{pesticideApplicationRecordId}', [PesticideApplicationRecordController::class, 'index']);
     Route::post('/store/{pesticideApplicationRecordId}', [PesticideApplicationRecordController::class, 'store']);
-    Route::put('/update/{pesticideApplicationRecordId}', [PesticideApplicationRecordController::class, 'update']);
-    Route::delete('destroy/{pesticideApplicationRecordId}', [PesticideApplicationRecordController::class, 'destroy']);
+    Route::put('/update/{id}', [PesticideApplicationRecordController::class, 'update']);
+    Route::delete('destroy/{id}', [PesticideApplicationRecordController::class, 'destroy']);
 });
 
 Route::prefix('fertilizer-application-record')->group(function () {
