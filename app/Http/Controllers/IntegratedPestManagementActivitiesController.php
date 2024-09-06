@@ -10,11 +10,13 @@ use Illuminate\Http\JsonResponse;
 
 class IntegratedPestManagementActivitiesController extends Controller
 {
-    private IntegratedPestManagementActivitiesService  $integratedPestManagementActivitiesService;
+    private IntegratedPestManagementActivitiesService $integratedPestManagementActivitiesService;
+
     public function __construct(IntegratedPestManagementActivitiesService $integratedPestManagementActivitiesService)
     {
-        $this->integratedPestManagementActivitiesService  = $integratedPestManagementActivitiesService;
+        $this->integratedPestManagementActivitiesService = $integratedPestManagementActivitiesService;
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -58,16 +60,16 @@ class IntegratedPestManagementActivitiesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateIntegratedPestManagementActivitiesRequest $request, IntegratedPestManagementActivities $integratedPestManagementActivities)
+    public function update(UpdateIntegratedPestManagementActivitiesRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->integratedPestManagementActivitiesService->updated($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(IntegratedPestManagementActivities $integratedPestManagementActivities)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->integratedPestManagementActivitiesService->delete($id);
     }
 }
