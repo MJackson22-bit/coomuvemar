@@ -107,8 +107,8 @@ Route::prefix('fertilizer-application-record')->group(function () {
 Route::prefix('sampling-ones')->group(function () {
     Route::get('/{id}', [SamplingOneController::class, 'index']);
     Route::post('/store/{samplingOneId}', [SamplingOneController::class, 'store']);
-    Route::put('/update/{samplingOneId}', [SamplingOneController::class, 'update']);
-    Route::delete('/destroy/{samplingOneId}', [SamplingOneController::class, 'destroy']);
+    Route::put('/update/{id}', [SamplingOneController::class, 'update']);
+    Route::delete('/destroy/{id}', [SamplingOneController::class, 'destroy']);
 });
 
 Route::prefix('sampling-twos')->group(function () {

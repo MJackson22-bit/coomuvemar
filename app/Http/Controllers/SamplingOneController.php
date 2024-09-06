@@ -60,16 +60,16 @@ class SamplingOneController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSamplingOneRequest $request, SamplingOne $samplingOne)
+    public function update(UpdateSamplingOneRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->samplingOneService->updated($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SamplingOne $samplingOne)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->samplingOneService->delete($id);
     }
 }
