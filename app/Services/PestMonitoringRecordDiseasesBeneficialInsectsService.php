@@ -5,6 +5,7 @@ namespace App\Services;
 use App\DTO\PestMonitoringRecordDiseasesBeneficialInsects\PestMonitoringRecordDiseasesBeneficialInsectsDTO;
 use App\Http\Requests\StorePestMonitoringRecordDiseasesBeneficialInsectsRequest;
 use App\Http\Requests\UpdatePestMonitoringRecordDiseasesBeneficialInsectsRequest;
+use App\Models\GeneralData;
 use App\Models\PestMonitoringRecordDiseasesBeneficialInsects;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -57,11 +58,10 @@ class PestMonitoringRecordDiseasesBeneficialInsectsService
     public function index(int $generalDataId): JsonResponse
     {
         try {
-            $data = PestMonitoringRecordDiseasesBeneficialInsects::where(
-                column: 'general_data_id',
-                operator: '=',
-                value: $generalDataId
-            )->get()->toArray();
+            $data = PestMonitoringRecordDiseasesBeneficialInsects::query()
+                ->where('general_data_id', $generalDataId)
+                ->get()
+                ->toArray();
 
             return response()->json([
                 'status' => true,
@@ -80,6 +80,7 @@ class PestMonitoringRecordDiseasesBeneficialInsectsService
     public function store(StorePestMonitoringRecordDiseasesBeneficialInsectsRequest $request, int $generalDataId): JsonResponse
     {
         try {
+            GeneralData::query()->findOrFail($generalDataId);
             $dto = new PestMonitoringRecordDiseasesBeneficialInsectsDTO(
                 fecha_monitoreo: date('Y-m-d', strtotime($request->get('fecha_monitoreo'))),
                 nombre_plaga_enfermedad: $request->get('nombre_plaga_enfermedad'),

@@ -60,16 +60,16 @@ class RegistryTemporaryPermanentWorkersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRegistryTemporaryPermanentWorkersRequest $request, RegistryTemporaryPermanentWorkers $registryTemporaryPermanentWorkers)
+    public function update(UpdateRegistryTemporaryPermanentWorkersRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->service->updated($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RegistryTemporaryPermanentWorkers $registryTemporaryPermanentWorkers)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->service->delete($id);
     }
 }
