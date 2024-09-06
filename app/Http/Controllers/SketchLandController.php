@@ -60,16 +60,16 @@ class SketchLandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSketchLandRequest $request, SketchLand $sketchLand)
+    public function update(UpdateSketchLandRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->sketchLandService->updated($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SketchLand $sketchLand)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->sketchLandService->delete($id);
     }
 }
