@@ -13,6 +13,7 @@ class SuppliesMaterialsPurchaseRecord extends Model
         'nombre_producto',
         'unidad_medida',
         'cantidad',
+        'categoria',
         'fecha_compra',
         'costo_unitario',
         'costo_total',

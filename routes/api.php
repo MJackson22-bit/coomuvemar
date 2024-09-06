@@ -67,7 +67,6 @@ Route::prefix('supplies-materials-purchase-record')->group(function () {
     Route::post('/store/{generalDataId}', [SuppliesMaterialsPurchaseRecordController::class, 'store']);
     Route::put('/update/{id}', [SuppliesMaterialsPurchaseRecordController::class, 'update']);
     Route::delete('/destroy/{id}', [SuppliesMaterialsPurchaseRecordController::class, 'destroy']);
-    Route::delete('/destroy/{id}', [SuppliesMaterialsPurchaseRecordController::class, 'destroy']);
 });
 
 Route::prefix('integrated-pest-management-activities')->group(function () {

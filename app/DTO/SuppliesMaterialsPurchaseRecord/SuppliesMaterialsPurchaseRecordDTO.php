@@ -14,6 +14,8 @@ class SuppliesMaterialsPurchaseRecordDTO
 
     public float $costo_unitario;
 
+    public string $categoria;
+
     public float $costo_total;
 
     public function __construct(
@@ -22,8 +24,10 @@ class SuppliesMaterialsPurchaseRecordDTO
         string $unidad_medida,
         string $fecha_compra,
         float $costo_unitario,
-        float $costo_total
+        float $costo_total,
+        string $categoria
     ) {
+        $this->categoria = $categoria;
         $this->nombre_producto = $nombre_producto;
         $this->cantidad = $cantidad;
         $this->unidad_medida = $unidad_medida;

@@ -26,6 +26,7 @@ class StoreSuppliesMaterialsPurchaseRecordRequest extends FormRequest
             'nombre_producto' => ['required', 'string'],
             'cantidad' => ['required', 'integer'],
             'unidad_medida' => ['required', 'string'],
+            'categoria' => ['required', 'string'],
             'fecha_compra' => ['required', 'date'],
             'costo_unitario' => ['required', 'numeric'],
             'costo_total' => ['required', 'numeric'],

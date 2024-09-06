@@ -60,16 +60,16 @@ class SuppliesMaterialsPurchaseRecordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSuppliesMaterialsPurchaseRecordRequest $request, SuppliesMaterialsPurchaseRecord $suppliesMaterialsPurchaseRecord)
+    public function update(UpdateSuppliesMaterialsPurchaseRecordRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->supplyMaterialsPurchaseRecordService->updated($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SuppliesMaterialsPurchaseRecord $suppliesMaterialsPurchaseRecord)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->supplyMaterialsPurchaseRecordService->delete($id);
     }
 }
