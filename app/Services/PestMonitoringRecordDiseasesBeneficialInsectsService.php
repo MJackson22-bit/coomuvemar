@@ -4,12 +4,56 @@ namespace App\Services;
 
 use App\DTO\PestMonitoringRecordDiseasesBeneficialInsects\PestMonitoringRecordDiseasesBeneficialInsectsDTO;
 use App\Http\Requests\StorePestMonitoringRecordDiseasesBeneficialInsectsRequest;
+use App\Http\Requests\UpdatePestMonitoringRecordDiseasesBeneficialInsectsRequest;
 use App\Models\PestMonitoringRecordDiseasesBeneficialInsects;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class PestMonitoringRecordDiseasesBeneficialInsectsService
 {
+    public function delete(int $id): JsonResponse
+    {
+        try {
+            $result = PestMonitoringRecordDiseasesBeneficialInsects::query()
+                ->findOrFail($id)->delete();
+
+            return response()->json([
+                'status' => $result,
+                'statusCode' => 200,
+                'message' => 'Registro eliminado exitosamente',
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function updated(UpdatePestMonitoringRecordDiseasesBeneficialInsectsRequest $request, int $id): JsonResponse
+    {
+        try {
+            $result = PestMonitoringRecordDiseasesBeneficialInsects::query()
+                ->findOrFail($id)->updateOrFail([
+                    'fecha_monitoreo' => $request->get('fecha_monitoreo'),
+                    'nombre_plaga_enfermedad' => $request->get('nombre_plaga_enfermedad'),
+                ]);
+
+            return response()->json([
+                'status' => $result,
+                'statusCode' => 200,
+                'message' => 'Registro actualizado correctamente',
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function index(int $generalDataId): JsonResponse
     {
         try {
@@ -32,6 +76,7 @@ class PestMonitoringRecordDiseasesBeneficialInsectsService
             ], 500);
         }
     }
+
     public function store(StorePestMonitoringRecordDiseasesBeneficialInsectsRequest $request, int $generalDataId): JsonResponse
     {
         try {
@@ -39,11 +84,12 @@ class PestMonitoringRecordDiseasesBeneficialInsectsService
                 fecha_monitoreo: date('Y-m-d', strtotime($request->get('fecha_monitoreo'))),
                 nombre_plaga_enfermedad: $request->get('nombre_plaga_enfermedad'),
             );
-            $storage = PestMonitoringRecordDiseasesBeneficialInsects::create([
-                'general_data_id' => $generalDataId,
-                'fecha_monitoreo' => $dto->fecha_monitoreo,
-                'nombre_plaga_enfermedad' => $dto->nombre_plaga_enfermedad,
-            ]);
+            $storage = PestMonitoringRecordDiseasesBeneficialInsects::query()
+                ->create([
+                    'general_data_id' => $generalDataId,
+                    'fecha_monitoreo' => $dto->fecha_monitoreo,
+                    'nombre_plaga_enfermedad' => $dto->nombre_plaga_enfermedad,
+                ]);
 
             return response()->json([
                 'status' => true,

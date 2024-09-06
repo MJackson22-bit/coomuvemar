@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PestMonitoringRecordDiseasesBeneficialInsects;
 use App\Http\Requests\StorePestMonitoringRecordDiseasesBeneficialInsectsRequest;
 use App\Http\Requests\UpdatePestMonitoringRecordDiseasesBeneficialInsectsRequest;
+use App\Models\PestMonitoringRecordDiseasesBeneficialInsects;
 use App\Services\PestMonitoringRecordDiseasesBeneficialInsectsService;
 use Illuminate\Http\JsonResponse;
 
@@ -16,6 +16,7 @@ class PestMonitoringRecordDiseasesBeneficialInsectsController extends Controller
     {
         $this->service = $service;
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -59,16 +60,16 @@ class PestMonitoringRecordDiseasesBeneficialInsectsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePestMonitoringRecordDiseasesBeneficialInsectsRequest $request, PestMonitoringRecordDiseasesBeneficialInsects $pestMonitoringRecordDiseasesBeneficialInsects)
+    public function update(UpdatePestMonitoringRecordDiseasesBeneficialInsectsRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->service->updated($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PestMonitoringRecordDiseasesBeneficialInsects $pestMonitoringRecordDiseasesBeneficialInsects)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->service->delete($id);
     }
 }

@@ -79,7 +79,7 @@ Route::prefix('integrated-pest-management-activities')->group(function () {
 Route::prefix('pest-monitoring-record-diseases-beneficial-insects')->group(function () {
     Route::get('/{generalDataId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'index']);
     Route::post('/store/{generalDataId}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'store']);
-    Route::put('/updated/{id}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'update']);
+    Route::put('/update/{id}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'update']);
     Route::delete('/destroy/{id}', [PestMonitoringRecordDiseasesBeneficialInsectsController::class, 'destroy']);
 });
 
