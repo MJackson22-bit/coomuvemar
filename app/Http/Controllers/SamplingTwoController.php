@@ -59,16 +59,16 @@ class SamplingTwoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSamplingTwoRequest $request, SamplingTwo $samplingTwo)
+    public function update(UpdateSamplingTwoRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->samplingTwoService->updated($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SamplingTwo $samplingTwo)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->samplingTwoService->delete($id);
     }
 }

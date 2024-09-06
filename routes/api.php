@@ -114,8 +114,8 @@ Route::prefix('sampling-ones')->group(function () {
 Route::prefix('sampling-twos')->group(function () {
     Route::get('/{id}', [SamplingTwoController::class, 'index']);
     Route::post('/store/{samplingTwoId}', [SamplingTwoController::class, 'store']);
-    Route::put('/update/{samplingTwoId}', [SamplingTwoController::class, 'update']);
-    Route::delete('/destroy/{samplingTwoId}', [SamplingTwoController::class, 'destroy']);
+    Route::put('/update/{id}', [SamplingTwoController::class, 'update']);
+    Route::delete('/destroy/{id}', [SamplingTwoController::class, 'destroy']);
 });
 
 Route::prefix('cocoa-area-activities-registries')->group(function () {
