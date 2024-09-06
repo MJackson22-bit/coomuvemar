@@ -59,16 +59,16 @@ class FertilizerApplicationRecordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFertilizerApplicationRecordRequest $request, FertilizerApplicationRecord $fertilizerApplicationRecord)
+    public function update(UpdateFertilizerApplicationRecordRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->fertilizerApplicationRecordService->updated($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FertilizerApplicationRecord $fertilizerApplicationRecord)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->fertilizerApplicationRecordService->delete($id);
     }
 }

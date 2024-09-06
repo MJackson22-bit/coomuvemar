@@ -100,8 +100,8 @@ Route::prefix('pesticide-application-record')->group(function () {
 Route::prefix('fertilizer-application-record')->group(function () {
     Route::get('/{pesticideApplicationRecordId}', [FertilizerApplicationRecordController::class, 'index']);
     Route::post('/store/{pesticideApplicationRecordId}', [FertilizerApplicationRecordController::class, 'store']);
-    Route::put('/update/{fertilizerApplicationRecordId}', [FertilizerApplicationRecordController::class, 'update']);
-    Route::delete('/destroy/{fertilizerApplicationRecordId}', [FertilizerApplicationRecordController::class, 'destroy']);
+    Route::put('/update/{id}', [FertilizerApplicationRecordController::class, 'update']);
+    Route::delete('/destroy/{id}', [FertilizerApplicationRecordController::class, 'destroy']);
 });
 
 Route::prefix('sampling-ones')->group(function () {

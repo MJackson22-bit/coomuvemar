@@ -4,20 +4,68 @@ namespace App\Services;
 
 use App\DTO\FertilizerApplicationRecord\FertilizerApplicationRecordDTO;
 use App\Http\Requests\StoreFertilizerApplicationRecordRequest;
+use App\Http\Requests\UpdateFertilizerApplicationRecordRequest;
 use App\Models\FertilizerApplicationRecord;
+use App\Models\SuppliesMaterialsPurchaseRecord;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class FertilizerApplicationRecordService
 {
+    public function delete(int $id): JsonResponse
+    {
+        try {
+            $result = FertilizerApplicationRecord::query()
+                ->findOrFail($id)->delete();
+
+            return response()->json([
+                'status' => $result,
+                'statusCode' => 200,
+                'message' => 'Registro eliminado exitosamente',
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function updated(UpdateFertilizerApplicationRecordRequest $request, int $id): JsonResponse
+    {
+        try {
+            $result = FertilizerApplicationRecord::query()
+                ->findOrFail($id)->updateOrFail([
+                    'nombre_fertilizante' => $request->get('nombre_fertilizante'),
+                    'lugar_aplicacion' => $request->get('lugar_aplicacion'),
+                    'tipo_insumo' => $request->get('tipo_insumo'),
+                    'procedencia_fertilizante' => $request->get('procedencia_fertilizante'),
+                    'dosis_planta' => $request->get('dosis_planta'),
+                    'dosis_manzana' => $request->get('dosis_manzana'),
+                    'veces_aplicado_anio' => $request->get('veces_aplicado_anio'),
+                ]);
+
+            return response()->json([
+                'status' => $result,
+                'statusCode' => 200,
+                'message' => 'Registro actualizado correctamente',
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
     public function index(int $pesticideApplicationRecordId): JsonResponse
     {
         try {
-            $data = FertilizerApplicationRecord::where(
-                column: 'registry_temporary_permanent_workers_id',
-                operator: '=',
-                value: $pesticideApplicationRecordId
-            )->get()->toArray();
+            $data = FertilizerApplicationRecord::query()
+                ->where('supplies_materials_purchase_records_id', $pesticideApplicationRecordId)
+                ->get()
+                ->toArray();
 
             return response()->json([
                 'status' => true,
@@ -32,9 +80,11 @@ class FertilizerApplicationRecordService
             ], 500);
         }
     }
+
     public function store(StoreFertilizerApplicationRecordRequest $request, int $pesticideApplicationRecordId): JsonResponse
     {
         try {
+            SuppliesMaterialsPurchaseRecord::query()->findOrFail($pesticideApplicationRecordId);
             $dto = new FertilizerApplicationRecordDTO(
                 nombre_fertilizante: $request->get('nombre_fertilizante'),
                 lugar_aplicacion: $request->get('lugar_aplicacion'),
@@ -45,16 +95,17 @@ class FertilizerApplicationRecordService
                 veces_aplicado_anio: $request->get('veces_aplicado_anio'),
             );
 
-            $data = FertilizerApplicationRecord::create([
-                'nombre_fertilizante' => $dto->nombre_fertilizante,
-                'lugar_aplicacion' => $dto->lugar_aplicacion,
-                'tipo_insumo' => $dto->tipo_insumo,
-                'procedencia_fertilizante' => $dto->procedencia_fertilizante,
-                'dosis_planta' => $dto->dosis_planta,
-                'dosis_manzana' => $dto->dosis_manzana,
-                'veces_aplicado_anio' => $dto->veces_aplicado_anio,
-                'registry_temporary_permanent_workers_id' => $pesticideApplicationRecordId,
-            ]);
+            $data = FertilizerApplicationRecord::query()
+                ->create([
+                    'nombre_fertilizante' => $dto->nombre_fertilizante,
+                    'lugar_aplicacion' => $dto->lugar_aplicacion,
+                    'tipo_insumo' => $dto->tipo_insumo,
+                    'procedencia_fertilizante' => $dto->procedencia_fertilizante,
+                    'dosis_planta' => $dto->dosis_planta,
+                    'dosis_manzana' => $dto->dosis_manzana,
+                    'veces_aplicado_anio' => $dto->veces_aplicado_anio,
+                    'supplies_materials_purchase_records_id' => $pesticideApplicationRecordId,
+                ]);
 
             return response()->json([
                 'status' => true,
