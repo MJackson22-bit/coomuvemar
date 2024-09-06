@@ -60,16 +60,16 @@ class CocoaAreaActivitiesRegistryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCocoaAreaActivitiesRegistryRequest $request, CocoaAreaActivitiesRegistry $cocoaAreaActivitiesRegistry)
+    public function update(UpdateCocoaAreaActivitiesRegistryRequest $request, int $id): JsonResponse
     {
-        //
+        return $this->cocoaAreaActivitiesRegistryService->updated($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CocoaAreaActivitiesRegistry $cocoaAreaActivitiesRegistry)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        return $this->cocoaAreaActivitiesRegistryService->delete($id);
     }
 }
