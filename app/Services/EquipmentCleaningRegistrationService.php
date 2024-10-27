@@ -39,7 +39,7 @@ class EquipmentCleaningRegistrationService
                 ->findOrFail($id)->updateOrFail([
                     'actividad' => $request->get('actividad'),
                     'equipo' => $request->get('equipo'),
-                    'fecha_uso' => $request->get('fecha_uso'),
+                    'fecha_uso' => date('Y-m-d', strtotime($request->get('fecha_uso'))),
                     'productos_usados_limpiar_producto' => json_encode($request->get('productos_usados_limpiar_producto')),
                 ]);
 
@@ -64,6 +64,10 @@ class EquipmentCleaningRegistrationService
                 ->where('general_data_id', $generalDataId)
                 ->get()
                 ->toArray();
+
+            for ($i = 0; $i < count($equipmentCleaningRegistration); $i++) {
+                $equipmentCleaningRegistration[$i]['productos_usados_limpiar_producto'] = json_decode($equipmentCleaningRegistration[$i]['productos_usados_limpiar_producto']);
+            }
 
             return response()->json([
                 'status' => true,
