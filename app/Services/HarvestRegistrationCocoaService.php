@@ -37,7 +37,7 @@ class HarvestRegistrationCocoaService
             $result = HarvestRegistrationCocoa::query()
                 ->findOrFail($id)
                 ->updateOrFail([
-                    'fecha' => $request->get('fecha'),
+                    'fecha' => date('Y-m-d', strtotime($request->get('fecha'))),
                     'cantidad_mazorcas' => $request->get('cantidad_mazorcas'),
                     'precio_qq' => $request->get('precio_qq'),
                     'qq_baba_cacao' => $request->get('qq_baba_cacao'),

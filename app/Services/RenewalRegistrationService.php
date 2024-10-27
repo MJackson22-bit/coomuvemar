@@ -38,7 +38,7 @@ class RenewalRegistrationService
             $result = RenewalRegistration::query()
                 ->findOrFail($id)
                 ->updateOrFail([
-                    'fecha_injertacion' => $request->get('fecha_injertacion'),
+                    'fecha_injertacion' => date('Y-m-d', strtotime($request->get('fecha_injertacion'))),
                     'numero_plantas_injertada_por_mz' => $request->get('numero_plantas_injertada_por_mz'),
                     'nombre_clones_injertados' => json_encode($request->get('nombre_clones_injertados')),
                     'nombre_proveedor' => $request->get('nombre_proveedor'),
@@ -66,6 +66,10 @@ class RenewalRegistrationService
                 ->get()
                 ->toArray();
 
+            for ($i = 0; $i < count($renewalRegistration); $i++) {
+                $renewalRegistration[$i]['nombre_clones_injertados'] = json_decode($renewalRegistration[$i]['nombre_clones_injertados']);
+            }
+
             return response()->json([
                 'status' => true,
                 'statusCode' => 200,
@@ -87,7 +91,7 @@ class RenewalRegistrationService
                 ->findOrFail($generalDataId);
 
             $renewalRegistrationDTO = new RenewalRegistrationDTO(
-                fecha_injertacion: $request->get('fecha_injertacion'),
+                fecha_injertacion: date('Y-m-d', strtotime($request->get('fecha_injertacion'))),
                 numero_plantas_injertada_por_mz: $request->get('numero_plantas_injertada_por_mz'),
                 nombre_clones_injertados: $request->get('nombre_clones_injertados'),
                 nombre_proveedor: $request->get('nombre_proveedor'),
