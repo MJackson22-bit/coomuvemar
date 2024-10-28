@@ -37,7 +37,7 @@ class PestMonitoringRecordDiseasesBeneficialInsectsService
         try {
             $result = PestMonitoringRecordDiseasesBeneficialInsects::query()
                 ->findOrFail($id)->updateOrFail([
-                    'fecha_monitoreo' => $request->get('fecha_monitoreo'),
+                    'fecha_monitoreo' => date('Y-m-d', strtotime($request->get('fecha_monitoreo'))),
                     'nombre_plaga_enfermedad' => $request->get('nombre_plaga_enfermedad'),
                 ]);
 
