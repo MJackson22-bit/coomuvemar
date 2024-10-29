@@ -45,7 +45,7 @@ class CocoaAreaActivitiesRegistryService
                     'pago_dia' => $request->get('pago_dia'),
                     'pago_total' => $request->get('pago_total'),
                     'pago_mensual' => $request->get('pago_mensual'),
-                    'fecha_pago' => $request->get('fecha_pago'),
+                    'fecha_pago' => date('Y-m-d', strtotime($request->get('fecha_pago'))),
                     'firma' => $request->get('firma'),
                 ]);
 
