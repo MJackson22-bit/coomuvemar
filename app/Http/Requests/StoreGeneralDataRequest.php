@@ -38,6 +38,7 @@ class StoreGeneralDataRequest extends FormRequest
             'produccion' => ['required', 'numeric'],
             'desarrollo' => ['required', 'numeric'],
             'variedades_cacao' => ['required', 'string'],
+            'es_certificado' => ['boolean'],
         ];
     }
 }

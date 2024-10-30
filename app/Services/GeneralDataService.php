@@ -51,6 +51,7 @@ class GeneralDataService
                     'produccion' => $request->get('produccion'),
                     'desarrollo' => $request->get('desarrollo'),
                     'variedades_cacao' => $request->get('variedades_cacao'),
+                    'es_certificado' => $request->get('es_certificado'),
                 ]);
 
             return response()->json([
@@ -108,6 +109,7 @@ class GeneralDataService
                 produccion: $request->get('produccion'),
                 desarrollo: $request->get('desarrollo'),
                 variedades_cacao: $request->get('variedades_cacao'),
+                es_certificado: $request->get('es_certificado'),
             );
 
             $generalData = GeneralData::query()
@@ -124,6 +126,7 @@ class GeneralDataService
                     'comunidad' => $generalDataDTO->comunidad,
                     'area_total_finca' => $generalDataDTO->area_total_finca,
                     'area_cacao' => $generalDataDTO->area_cacao,
+                    'es_certificado' => $generalDataDTO->es_certificado,
                     'produccion' => $generalDataDTO->produccion,
                     'desarrollo' => $generalDataDTO->desarrollo,
                     'variedades_cacao' => $generalDataDTO->variedades_cacao,

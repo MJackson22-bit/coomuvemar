@@ -26,6 +26,7 @@ class GeneralData extends Model
         'area_cacao',
         'produccion',
         'desarrollo',
+        'es_certificado',
         'variedades_cacao',
         'user_id',
     ];

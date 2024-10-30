@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('fecha_monitoreo');
             $table->string('nombre_plaga_enfermedad');
+            $table->integer('numero_plantas_afectadas_1');
+            $table->integer('numero_mazorcas_afectadas_1');
+            $table->integer('numero_plantas_afectadas_2');
+            $table->integer('numero_mazorcas_afectadas_2');
             $table->foreignId('general_data_id');
             $table->timestamps();
         });

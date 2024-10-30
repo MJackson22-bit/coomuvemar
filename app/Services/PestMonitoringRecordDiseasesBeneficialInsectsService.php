@@ -39,6 +39,10 @@ class PestMonitoringRecordDiseasesBeneficialInsectsService
                 ->findOrFail($id)->updateOrFail([
                     'fecha_monitoreo' => date('Y-m-d', strtotime($request->get('fecha_monitoreo'))),
                     'nombre_plaga_enfermedad' => $request->get('nombre_plaga_enfermedad'),
+                    'numero_plantas_afectadas_2' => $request->get('numero_plantas_afectadas_2'),
+                    'numero_mazorcas_afectadas_2' => $request->get('numero_mazorcas_afectadas_2'),
+                    'numero_plantas_afectadas_1' => $request->get('numero_plantas_afectadas_1'),
+                    'numero_mazorcas_afectadas_1' => $request->get('numero_mazorcas_afectadas_1'),
                 ]);
 
             return response()->json([
@@ -84,12 +88,20 @@ class PestMonitoringRecordDiseasesBeneficialInsectsService
             $dto = new PestMonitoringRecordDiseasesBeneficialInsectsDTO(
                 fecha_monitoreo: date('Y-m-d', strtotime($request->get('fecha_monitoreo'))),
                 nombre_plaga_enfermedad: $request->get('nombre_plaga_enfermedad'),
+                numero_plantas_afectadas_2: $request->get('numero_plantas_afectadas_2'),
+                numero_mazorcas_afectadas_2: $request->get('numero_mazorcas_afectadas_2'),
+                numero_plantas_afectadas_1: $request->get('numero_plantas_afectadas_1'),
+                numero_mazorcas_afectadas_1: $request->get('numero_mazorcas_afectadas_1'),
             );
             $storage = PestMonitoringRecordDiseasesBeneficialInsects::query()
                 ->create([
                     'general_data_id' => $generalDataId,
                     'fecha_monitoreo' => $dto->fecha_monitoreo,
                     'nombre_plaga_enfermedad' => $dto->nombre_plaga_enfermedad,
+                    'numero_plantas_afectadas_2' => $dto->numero_plantas_afectadas_2,
+                    'numero_mazorcas_afectadas_2' => $dto->numero_mazorcas_afectadas_2,
+                    'numero_plantas_afectadas_1' => $dto->numero_plantas_afectadas_1,
+                    'numero_mazorcas_afectadas_1' => $dto->numero_mazorcas_afectadas_1,
                 ]);
 
             return response()->json([

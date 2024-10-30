@@ -80,7 +80,7 @@ class SamplingOneService
     public function store(StoreSamplingOneRequest $request, int $pestMonitoringRecordDiseasesBeneficialInsectsId): JsonResponse
     {
         try {
-            PestMonitoringRecordDiseasesBeneficialInsects::query()->findOrFail($pestMonitoringRecordDiseasesBeneficialInsectsId);
+            $record = PestMonitoringRecordDiseasesBeneficialInsects::query()->findOrFail($pestMonitoringRecordDiseasesBeneficialInsectsId);
             $dto = new SamplingOneDTO(
                 numero_plantas_afectadas: $request->get('numero_plantas_afectadas'),
                 numero_mazorcas_afectadas: $request->get('numero_mazorcas_afectadas'),

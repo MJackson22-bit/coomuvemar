@@ -27,6 +27,7 @@ class GeneralDataDTO
     public string $area_total_finca;
 
     public string $area_cacao;
+    public bool $es_certificado;
 
     public string $produccion;
 
@@ -49,7 +50,8 @@ class GeneralDataDTO
         float $area_cacao,
         float $produccion,
         float $desarrollo,
-        string $variedades_cacao
+        string $variedades_cacao,
+        bool $es_certificado,
     ) {
         $this->nombre_productor = $nombre_productor;
         $this->codigo = $codigo;
@@ -66,5 +68,6 @@ class GeneralDataDTO
         $this->produccion = $produccion;
         $this->desarrollo = $desarrollo;
         $this->variedades_cacao = $variedades_cacao;
+        $this->es_certificado = $es_certificado;
     }
 }
