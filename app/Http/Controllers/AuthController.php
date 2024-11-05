@@ -12,6 +12,27 @@ use Throwable;
 
 class AuthController extends Controller
 {
+    public function users(): JsonResponse
+    {
+        try {
+            $users = User::query()
+                ->get()
+                ->toArray();
+
+            return response()->json([
+                'status' => true,
+                'statusCode' => 200,
+                'data' => $users,
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'statusCode' => 500,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function login(Request $request): JsonResponse
     {
         try {

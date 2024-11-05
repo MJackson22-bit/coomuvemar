@@ -22,6 +22,7 @@ Route::get('/', function () {
     return 'Hello World!';
 });
 Route::prefix('auth')->group(function () {
+    Route::get('/users', [AuthController::class, 'users']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
