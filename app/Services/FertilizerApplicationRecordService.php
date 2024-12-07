@@ -59,11 +59,11 @@ class FertilizerApplicationRecordService
             ], 500);
         }
     }
-    public function index(int $pesticideApplicationRecordId): JsonResponse
+    public function index(int $generalDataId): JsonResponse
     {
         try {
             $data = FertilizerApplicationRecord::query()
-                ->where('supplies_materials_purchase_records_id', $pesticideApplicationRecordId)
+                ->where('general_data_id', $generalDataId)
                 ->get()
                 ->toArray();
 
@@ -81,10 +81,10 @@ class FertilizerApplicationRecordService
         }
     }
 
-    public function store(StoreFertilizerApplicationRecordRequest $request, int $pesticideApplicationRecordId): JsonResponse
+    public function store(StoreFertilizerApplicationRecordRequest $request, int $generalDataId): JsonResponse
     {
         try {
-            SuppliesMaterialsPurchaseRecord::query()->findOrFail($pesticideApplicationRecordId);
+            SuppliesMaterialsPurchaseRecord::query()->findOrFail($generalDataId);
             $dto = new FertilizerApplicationRecordDTO(
                 nombre_fertilizante: $request->get('nombre_fertilizante'),
                 lugar_aplicacion: $request->get('lugar_aplicacion'),
@@ -104,7 +104,7 @@ class FertilizerApplicationRecordService
                     'dosis_planta' => $dto->dosis_planta,
                     'dosis_manzana' => $dto->dosis_manzana,
                     'veces_aplicado_anio' => $dto->veces_aplicado_anio,
-                    'supplies_materials_purchase_records_id' => $pesticideApplicationRecordId,
+                    'general_data_id' => $generalDataId,
                 ]);
 
             return response()->json([

@@ -22,6 +22,6 @@ class CocoaAreaActivitiesRegistry extends Model
         'pago_mensual',
         'fecha_pago',
         'firma',
-        'registry_temporary_permanent_workers_id',
+        'general_data_id',
     ];
 }

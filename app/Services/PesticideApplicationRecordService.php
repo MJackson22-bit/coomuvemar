@@ -5,8 +5,8 @@ namespace App\Services;
 use App\DTO\PesticideApplicationRecord\PesticideApplicationRecordDTO;
 use App\Http\Requests\StorePesticideApplicationRecordRequest;
 use App\Http\Requests\UpdatePesticideApplicationRecordRequest;
+use App\Models\GeneralData;
 use App\Models\PesticideApplicationRecord;
-use App\Models\SuppliesMaterialsPurchaseRecord;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
@@ -61,11 +61,12 @@ class PesticideApplicationRecordService
             ], 500);
         }
     }
-    public function index(int $pesticideApplicationRecordId): JsonResponse
+
+    public function index(int $generalDataId): JsonResponse
     {
         try {
             $data = PesticideApplicationRecord::query()
-                ->where('supplies_materials_purchase_records_id', $pesticideApplicationRecordId)
+                ->where('general_data_id', $generalDataId)
                 ->get()
                 ->toArray();
 
@@ -83,10 +84,10 @@ class PesticideApplicationRecordService
         }
     }
 
-    public function store(StorePesticideApplicationRecordRequest $request, int $pesticideApplicationRecordId): JsonResponse
+    public function store(StorePesticideApplicationRecordRequest $request, int $generalDataId): JsonResponse
     {
         try {
-            SuppliesMaterialsPurchaseRecord::query()->findOrFail($pesticideApplicationRecordId);
+            GeneralData::query()->findOrFail($generalDataId);
             $dto = new PesticideApplicationRecordDTO(
                 nombres_apellidos_aplicadores: $request->input('nombres_apellidos_aplicadores'),
                 plaga_enfermedad: $request->input('plaga_enfermedad'),
@@ -110,7 +111,7 @@ class PesticideApplicationRecordService
                     'mz_area_producto_aplicado' => $dto->mz_area_producto_aplicado,
                     'lugar_cultivo_producto_aplicado' => $dto->lugar_cultivo_producto_aplicado,
                     'litros_total_volumen_aplicado' => $dto->litros_total_volumen_aplicado,
-                    'supplies_materials_purchase_records_id' => $pesticideApplicationRecordId,
+                    'general_data_id' => $generalDataId,
                 ]);
 
             return response()->json([

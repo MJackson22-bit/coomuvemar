@@ -34,6 +34,7 @@ class GeneralDataDTO
     public string $desarrollo;
 
     public string $variedades_cacao;
+    public string $bosquejo_finca;
 
     public function __construct(
         string $nombre_productor,
@@ -52,6 +53,7 @@ class GeneralDataDTO
         float $desarrollo,
         string $variedades_cacao,
         bool $es_certificado,
+        string $bosquejo_finca
     ) {
         $this->nombre_productor = $nombre_productor;
         $this->codigo = $codigo;
@@ -69,5 +71,6 @@ class GeneralDataDTO
         $this->desarrollo = $desarrollo;
         $this->variedades_cacao = $variedades_cacao;
         $this->es_certificado = $es_certificado;
+        $this->bosquejo_finca = $bosquejo_finca;
     }
 }

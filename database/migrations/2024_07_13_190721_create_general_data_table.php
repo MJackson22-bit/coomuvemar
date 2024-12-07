@@ -28,6 +28,7 @@ return new class extends Migration
             $table->float('produccion');
             $table->float('desarrollo');
             $table->string('variedades_cacao');
+            $table->string('bosquejo_finca');
             $table->boolean('es_certificado');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

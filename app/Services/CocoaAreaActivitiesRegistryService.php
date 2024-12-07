@@ -6,6 +6,7 @@ use App\DTO\CocoaAreaActivitiesRegistry\CocoaAreaActivitiesRegistryDTO;
 use App\Http\Requests\StoreCocoaAreaActivitiesRegistryRequest;
 use App\Http\Requests\UpdateCocoaAreaActivitiesRegistryRequest;
 use App\Models\CocoaAreaActivitiesRegistry;
+use App\Models\GeneralData;
 use App\Models\RegistryTemporaryPermanentWorkers;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -66,7 +67,7 @@ class CocoaAreaActivitiesRegistryService
     public function store(StoreCocoaAreaActivitiesRegistryRequest $request, int $id): JsonResponse
     {
         try {
-            RegistryTemporaryPermanentWorkers::query()->findOrFail($id);
+            GeneralData::query()->findOrFail($id);
             $dto = new CocoaAreaActivitiesRegistryDto(
                 actividad: $request->get('actividad'),
                 nombre_trabajador: $request->get('nombre_trabajador'),
@@ -92,7 +93,7 @@ class CocoaAreaActivitiesRegistryService
                     'pago_mensual' => $dto->pago_mensual,
                     'fecha_pago' => $dto->fecha_pago,
                     'firma' => $dto->firma,
-                    'registry_temporary_permanent_workers_id' => $id,
+                    'general_data_id' => $id,
                 ]);
 
             return response()->json([
@@ -112,9 +113,9 @@ class CocoaAreaActivitiesRegistryService
     public function index(int $id): JsonResponse
     {
         try {
-            RegistryTemporaryPermanentWorkers::query()->findOrFail($id);
+            GeneralData::query()->findOrFail($id);
             $data = CocoaAreaActivitiesRegistry::query()
-                ->where('registry_temporary_permanent_workers_id', $id)
+                ->where('general_data_id', $id)
                 ->get()
                 ->toArray();
 

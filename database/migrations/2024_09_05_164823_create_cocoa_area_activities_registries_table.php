@@ -23,7 +23,7 @@ return new class extends Migration
             $table->float('pago_mensual');
             $table->date('fecha_pago');
             $table->string('firma');
-            $table->foreignId('registry_temporary_permanent_workers_id');
+            $table->foreignId('general_data_id');
             $table->timestamps();
         });
     }

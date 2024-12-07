@@ -29,6 +29,7 @@ class GeneralData extends Model
         'es_certificado',
         'variedades_cacao',
         'user_id',
+        'bosquejo_finca',
     ];
 
     public $timestamps = true;

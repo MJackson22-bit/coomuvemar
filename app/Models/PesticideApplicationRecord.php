@@ -21,6 +21,6 @@ class PesticideApplicationRecord extends Model
         'lugar_cultivo_producto_aplicado',
         'mz_area_producto_aplicado',
         'litros_total_volumen_aplicado',
-        'supplies_materials_purchase_records_id',
+        'general_data_id',
     ];
 }

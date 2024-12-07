@@ -34,6 +34,8 @@ class GeneralDataService
     public function updated(UpdateGeneralDataRequest $request, int $id): JsonResponse
     {
         try {
+            $imageName = time().'.'.$request->get('bosquejo_finca')->extension();
+            $request->get('bosquejo_finca')->move(public_path('images'), $imageName);
             $result = GeneralData::query()
                 ->findOrFail($id)->updateOrFail([
                     'nombre_productor' => $request->get('nombre_productor'),
@@ -49,6 +51,7 @@ class GeneralDataService
                     'area_total_finca' => $request->get('area_total_finca'),
                     'area_cacao' => $request->get('area_cacao'),
                     'produccion' => $request->get('produccion'),
+                    'bosquejo_finca' => 'images/'.$imageName,
                     'desarrollo' => $request->get('desarrollo'),
                     'variedades_cacao' => $request->get('variedades_cacao'),
                     'es_certificado' => $request->get('es_certificado'),
@@ -75,6 +78,10 @@ class GeneralDataService
                 ->where('user_id', '=', $userId)
                 ->get()
                 ->toArray();
+
+            for ($i = 0; $i < count($generalDataByUser); $i++) {
+                $generalDataByUser[$i]['bosquejo_finca'] = 'http://127.0.0.1:8000/'.$generalDataByUser[$i]['bosquejo_finca'];
+            }
 
             return response()->json([
                 'status' => true,
@@ -110,6 +117,7 @@ class GeneralDataService
                 desarrollo: $request->get('desarrollo'),
                 variedades_cacao: $request->get('variedades_cacao'),
                 es_certificado: $request->get('es_certificado'),
+                bosquejo_finca: 'storage/'.$request->get('bosquejo_finca'),
             );
 
             $generalData = GeneralData::query()
@@ -130,6 +138,7 @@ class GeneralDataService
                     'produccion' => $generalDataDTO->produccion,
                     'desarrollo' => $generalDataDTO->desarrollo,
                     'variedades_cacao' => $generalDataDTO->variedades_cacao,
+                    'bosquejo_finca' => $generalDataDTO->bosquejo_finca,
                     'user_id' => $userId,
                 ]);
 

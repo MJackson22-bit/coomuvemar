@@ -20,7 +20,7 @@ return new class extends Migration
             $table->float('dosis_planta');
             $table->float('dosis_manzana');
             $table->integer('veces_aplicado_anio');
-            $table->foreignId('supplies_materials_purchase_records_id');
+            $table->foreignId('general_data_id');
             $table->timestamps();
         });
     }

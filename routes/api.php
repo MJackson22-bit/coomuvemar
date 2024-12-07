@@ -14,7 +14,6 @@ use App\Http\Controllers\RegistryTemporaryPermanentWorkersController;
 use App\Http\Controllers\RenewalRegistrationController;
 use App\Http\Controllers\SamplingOneController;
 use App\Http\Controllers\SamplingTwoController;
-use App\Http\Controllers\SketchLandController;
 use App\Http\Controllers\SuppliesMaterialsPurchaseRecordController;
 use Illuminate\Support\Facades\Route;
 
@@ -125,11 +124,3 @@ Route::prefix('cocoa-area-activities-registries')->group(function () {
     Route::put('/update/{id}', [CocoaAreaActivitiesRegistryController::class, 'update']);
     Route::delete('/destroy/{id}', [CocoaAreaActivitiesRegistryController::class, 'destroy']);
 });
-
-Route::prefix('sketch-lands')->group(function () {
-    Route::get('/{generalDataId}', [SketchLandController::class, 'index']);
-    Route::post('/store/{generalDataId}', [SketchLandController::class, 'store']);
-    Route::put('/update/{id}', [SketchLandController::class, 'update']);
-    Route::delete('/destroy/{id}', [SketchLandController::class, 'destroy']);
-});
-

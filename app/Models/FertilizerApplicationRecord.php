@@ -19,6 +19,6 @@ class FertilizerApplicationRecord extends Model
         'dosis_planta',
         'dosis_manzana',
         'veces_aplicado_anio',
-        'supplies_materials_purchase_records_id',
+        'general_data_id',
     ];
 }
