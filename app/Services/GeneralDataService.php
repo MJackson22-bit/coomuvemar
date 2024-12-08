@@ -34,8 +34,6 @@ class GeneralDataService
     public function updated(UpdateGeneralDataRequest $request, int $id): JsonResponse
     {
         try {
-            $imageName = time().'.'.$request->get('bosquejo_finca')->extension();
-            $request->get('bosquejo_finca')->move(public_path('images'), $imageName);
             $result = GeneralData::query()
                 ->findOrFail($id)->updateOrFail([
                     'nombre_productor' => $request->get('nombre_productor'),
@@ -51,7 +49,7 @@ class GeneralDataService
                     'area_total_finca' => $request->get('area_total_finca'),
                     'area_cacao' => $request->get('area_cacao'),
                     'produccion' => $request->get('produccion'),
-                    'bosquejo_finca' => 'images/'.$imageName,
+                    'bosquejo_finca' => 'storage/'.$request->get('bosquejo_finca'),
                     'desarrollo' => $request->get('desarrollo'),
                     'variedades_cacao' => $request->get('variedades_cacao'),
                     'es_certificado' => $request->get('es_certificado'),
