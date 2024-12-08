@@ -6,6 +6,7 @@ use App\DTO\FertilizerApplicationRecord\FertilizerApplicationRecordDTO;
 use App\Http\Requests\StoreFertilizerApplicationRecordRequest;
 use App\Http\Requests\UpdateFertilizerApplicationRecordRequest;
 use App\Models\FertilizerApplicationRecord;
+use App\Models\GeneralData;
 use App\Models\SuppliesMaterialsPurchaseRecord;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -59,6 +60,7 @@ class FertilizerApplicationRecordService
             ], 500);
         }
     }
+
     public function index(int $generalDataId): JsonResponse
     {
         try {
@@ -84,7 +86,7 @@ class FertilizerApplicationRecordService
     public function store(StoreFertilizerApplicationRecordRequest $request, int $generalDataId): JsonResponse
     {
         try {
-            SuppliesMaterialsPurchaseRecord::query()->findOrFail($generalDataId);
+            GeneralData::query()->findOrFail($generalDataId);
             $dto = new FertilizerApplicationRecordDTO(
                 nombre_fertilizante: $request->get('nombre_fertilizante'),
                 lugar_aplicacion: $request->get('lugar_aplicacion'),
